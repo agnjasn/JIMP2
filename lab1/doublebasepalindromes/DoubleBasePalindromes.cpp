@@ -21,7 +21,7 @@ uint64_t DoubleBasePalindromes(int max_vaule_exculsive) {
 
 bool is_palindrome(string str)
 {
-    int size=str.length();
+    unsigned long size=str.length();
     for (int i=0; i<(str.length()/2); i++)
     {
         if(str[i]!=str[size-1]) return 0;

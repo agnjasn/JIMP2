@@ -8,7 +8,7 @@ string reverse(string str)
 {
     string reversestr;
     reversestr="";
-    for(int i=str.length()-1; i>=0; i--)
+    for(unsigned long i=str.length()-1; i>=0; i--)
     {
         reversestr+=str[i];
     }
