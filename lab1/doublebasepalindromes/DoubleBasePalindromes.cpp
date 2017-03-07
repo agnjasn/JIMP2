@@ -13,13 +13,13 @@ uint64_t DoubleBasePalindromes(int max_vaule_exculsive) {
         sprintf((char *) tmp.c_str(), "%d", i);
         max_ve=tmp.c_str();
         value_in_2=conversion_to_2(i);
-        if(is_palindrome(max_ve)==1 && is_palindrome(value_in_2)==1) sum+=i;
+        if(IsPalindrome(max_ve)==1 && IsPalindrome(value_in_2)==1) sum+=i;
 
     }
     return sum;
 }
 
-bool is_palindrome(string str)
+bool IsPalindrome(string str)
 {
     unsigned long size=str.length();
     for (int i=0; i<(str.length()/2); i++)
