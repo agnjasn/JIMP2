@@ -26,7 +26,7 @@ set(SIMPLE_FORWARD_LIST_SRC ${SIMPLE_FORWARD_LIST_STEP1_SRC} ${SIMPLE_FORWARD_LI
 
 set(XOR_CYPHER_BREAKER_SRC XorCypherBreakerTest.cpp)
 
-set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC})
+set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC} ../../lab2/simpleforwardlist/SimpleForwardList.cpp ../../lab2/simpleforwardlist/SimpleForwardList.h)
 
 #set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 

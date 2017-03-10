@@ -10,6 +10,6 @@
 #include <string>
 
 uint64_t DoubleBasePalindromes(int max_vaule_exculsive);
-bool is_palindrome(std::string str);
+bool IsPalindrome(std::string str);
 std::string conversion_to_2(int);
 #endif //JIMP_EXERCISES_DUOBLEBASEPALINDROMES_H

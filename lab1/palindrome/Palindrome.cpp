@@ -5,7 +5,7 @@
 #include "Palindrome.h"
 using namespace std;
 
-bool is_palindrome(string str)
+bool IsPalindrome(string str)
 {
     unsigned long size=str.length();
     for (int i=0; i<(str.length()/2); i++)

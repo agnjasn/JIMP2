@@ -14,7 +14,7 @@ int main()
     switch(x)
     {
         case 1: break;
-        case 2: cout<<is_palindrome(str)<<endl;
+        case 2: cout<< IsPalindrome(str)<<endl;
             break;
         default: break;
 
