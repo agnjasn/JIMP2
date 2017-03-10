@@ -1,7 +1,9 @@
 #include <iostream>
 #include "Factorial.h"
-
+using namespace std;
 int main() {
-  std::cout << "factorial of 20 is: " << factorial(20) << std::endl;
+  int value;
+  cin>>value;
+  cout << "factorial of 20 is: " << factorial(value) << std::endl;
   return 0;
 }

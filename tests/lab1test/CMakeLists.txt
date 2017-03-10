@@ -6,11 +6,11 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 
 set(FACTORIAL_SRC FactorialTest.cpp)
-set(REVERSE_STRING_SRC ReverseStringTest.cpp)
-set(PALINDROME_SRC PalindromeTest.cpp)
-set(MULTIPLICATION_TABLE_SRC MultiplicationTableTest.cpp)
+set(REVERSE_STRING_SRC ReverseStringTest.cpp ../../lab1/reversestring/ReverseString.cpp ../../lab1/reversestring/ReverseString.h)
+set(PALINDROME_SRC PalindromeTest.cpp ../../lab1/palindrome/Palindrome.cpp ../../lab1/palindrome/Palindrome.h)
+set(MULTIPLICATION_TABLE_SRC MultiplicationTableTest.cpp ../../lab1/multiplicationtable/MultiplicationTable.cpp ../../lab1/multiplicationtable/MultiplicationTable.h)
 set(DOUBLE_BASE_PALINDROME_SRC DoubleBasePalindromeTest.cpp)
-set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC})
+set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC} ../../lab1/palindrome/main.cpp ../../lab2/array2d/Array2D.cpp ../../lab2/array2d/Array2D.h)
 
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
@@ -19,17 +19,17 @@ add_executable(lab1_factorial_tests ${FACTORIAL_SRC})
 target_link_libraries(lab1_factorial_tests ${GTEST_LIBS})
 target_link_libraries(lab1_factorial_tests libfactorial)
 
-add_executable(lab1_reverse_string_tests ${REVERSE_STRING_SRC})
+add_executable(lab1_reverse_string_tests ${REVERSE_STRING_SRC} ../../lab1/reversestring/ReverseString.cpp ../../lab1/reversestring/ReverseString.h)
 
 target_link_libraries(lab1_reverse_string_tests ${GTEST_LIBS})
 target_link_libraries(lab1_reverse_string_tests libreversestring)
 
-add_executable(lab1_palindrome_tests ${PALINDROME_SRC})
+add_executable(lab1_palindrome_tests ${PALINDROME_SRC} ../../lab1/palindrome/Palindrome.cpp ../../lab1/palindrome/Palindrome.h)
 
 target_link_libraries(lab1_palindrome_tests ${GTEST_LIBS})
 target_link_libraries(lab1_palindrome_tests libpalindrome)
 
-add_executable(lab1_multiplication_table_tests ${MULTIPLICATION_TABLE_SRC})
+add_executable(lab1_multiplication_table_tests ${MULTIPLICATION_TABLE_SRC} ../../lab1/multiplicationtable/MultiplicationTable.cpp ../../lab1/multiplicationtable/MultiplicationTable.h)
 
 target_link_libraries(lab1_multiplication_table_tests ${GTEST_LIBS})
 target_link_libraries(lab1_multiplication_table_tests libmultiplicationtable)
