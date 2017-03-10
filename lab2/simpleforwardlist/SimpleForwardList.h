@@ -9,6 +9,12 @@
 
 struct ForwardList{};
 
+struct Node
+{
+int Value = 0;
+struct Node *next = nullptr;
+};
+
 ForwardList *CreateNode(int value);
 void DestroyList(ForwardList *list);
 
