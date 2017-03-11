@@ -7,7 +7,15 @@
 
 #include <iostream>
 
-struct ForwardList{};
+
+
+struct ForwardList
+{
+    int value = 0;
+    ForwardList *next= nullptr;
+};
+
+
 
 ForwardList *CreateNode(int value);
 void DestroyList(ForwardList *list);
