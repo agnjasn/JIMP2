@@ -19,6 +19,8 @@ struct ForwardList
 
 ForwardList *CreateNode(int value);
 void DestroyList(ForwardList *list);
+ForwardList *PushFront(ForwardList *list, int value);
+void Append(ForwardList *list, ForwardList *tail);
 
 
 
