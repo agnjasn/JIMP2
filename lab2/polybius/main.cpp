@@ -12,14 +12,14 @@ int main(int argc, char* argv[])
     string crypted="";
     string pliktekst=argv[1];
    string plikszyfr=argv[2];
-    int wybor=atoi(argv[3]);
-    if(wybor==1)
+    int wybor=atoi(argv[3]);                    //wybor odszyfrowania lub szyfrowania
+    if(wybor==1)                                //szyfrowanie
     {
         ifstream openfile(pliktekst.c_str());
         if(openfile.good())
         {
-            while (!openfile.eof()) {
-                getline(openfile, message);
+            while (!openfile.eof()) {          //aż dojdzie do końca pliku
+                getline(openfile, message);    //bierze całą linie <do znaku \n> i wstawia do message
             }
             openfile.close();
         }
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
         }
         else cout<<"blad przy zamykaniu";
     }
-    else if(wybor==0)
+    else if(wybor==0)                          //odszyfrowanie
     {
         ifstream openfile(plikszyfr.c_str());
         if(!openfile) cout<<"blad";
@@ -47,10 +47,13 @@ int main(int argc, char* argv[])
         message=PolybiusDecrypt(crypted);
 
         ofstream sendtofile(pliktekst.c_str());
-        if(!sendtofile) cout<<"blad";
-        sendtofile<<message;
-        sendtofile.close();
+        if(sendtofile.good())
+        {
+            sendtofile << message;
+            sendtofile.close();
+        }
+        else cout<<"blad przy zamykaniu";
     }
-    else cout<<"bledne polecenie";
+    else cout<<"bledne polecenie";            //zabezpieczenie jakby argv[3] był inny niz 0 lub 1
     return 0;
 }
