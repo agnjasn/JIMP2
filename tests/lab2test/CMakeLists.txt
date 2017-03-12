@@ -10,9 +10,9 @@ set(ARRAY_2D_STEP3_SRC Array2DStep3Test.cpp)
 set(ARRAY_2D_STEP4_SRC Array2DStep4Test.cpp)
 set(ARRAY_2D_SRC ${ARRAY_2D_STEP1_SRC} ${ARRAY_2D_STEP2_SRC} ${ARRAY_2D_STEP3_SRC} ${ARRAY_2D_STEP4_SRC})
 
-set(POLYBIUS_STEP1_SRC PolybiusStep1Test.cpp)
-set(POLYBIUS_STEP2_SRC PolybiusStep2Test.cpp)
-set(POLYBIUS_SRC ${POLYBIUS_STEP1_SRC} ${POLYBIUS_STEP2_SRC})
+set(POLYBIUS_STEP1_SRC PolybiusStep1Test.cpp ../../lab2/polybius/main.cpp ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp)
+set(POLYBIUS_STEP2_SRC PolybiusStep2Test.cpp ../../lab2/polybius/main.cpp ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp)
+set(POLYBIUS_SRC ${POLYBIUS_STEP1_SRC} ${POLYBIUS_STEP2_SRC} ../../lab2/polybius/main.cpp ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp)
 
 set(GREATEST_PRODUCT_STEP1_SRC GreatestProductStep1Test.cpp)
 set(GREATEST_PRODUCT_STEP2_SRC GreatestProductStep2Test.cpp)
@@ -26,7 +26,7 @@ set(SIMPLE_FORWARD_LIST_SRC ${SIMPLE_FORWARD_LIST_STEP1_SRC} ${SIMPLE_FORWARD_LI
 
 set(XOR_CYPHER_BREAKER_SRC XorCypherBreakerTest.cpp)
 
-set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC} ../../lab2/simpleforwardlist/SimpleForwardList.cpp ../../lab2/simpleforwardlist/SimpleForwardList.h)
+set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC} ../../lab2/simpleforwardlist/SimpleForwardList.cpp ../../lab2/simpleforwardlist/SimpleForwardList.h ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp)
 
 #set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
@@ -60,7 +60,7 @@ add_gtest_with_memleak(xor_cypher_breaker libxorcypherbreaker)
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab2_all_tests ${SOURCE_FILES})
+add_executable(lab2_all_tests ${SOURCE_FILES} ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp)
 
 target_link_libraries(lab2_all_tests ${GTEST_LIBS})
 target_link_libraries(lab2_all_tests libarray2d)
