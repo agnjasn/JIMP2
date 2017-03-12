@@ -29,7 +29,7 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram,
                              int key_length,
                              const std::vector<string> &dictionary)
 {
-    string key, ki;
+    string key, bestkey;
     vector <char> decrypted;
     string word;
     int wordcount=0, maxwc=0;
@@ -52,11 +52,11 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram,
 
         for (int i=0; i<decrypted.size(); i++) //szukanie słów i szukanie ich w słowniku
         {
-            if(decrypted[i]==' ' || decrypted[i]==',' || decrypted[i]=='.')
+            if(decrypted[i]==' ' || decrypted[i]==',' || decrypted[i]=='.') //szukanie "oddzielaczy" słow
             {
                 if (find(dictionary.begin(),dictionary.end(),word) != dictionary.end())
                 {
-                    wordcount++;
+                    wordcount++; //liczenie ile slow odszyfrowanych jest w slowniku
                 }
                 word="";
             }
@@ -66,10 +66,10 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram,
             }
         }
 
-        if (wordcount>maxwc)
+        if (wordcount>maxwc) //jesli aktualny klucz jet lepszy niz ten dotychczas najlepszy, to go zamien
         {
             maxwc=wordcount;
-            ki=key;
+            bestkey=key;
         }
 
         decrypted.clear();
@@ -79,5 +79,5 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram,
 
     // CHRYSTE PANIE TO DZIAŁA
 
-    return ki;
+    return bestkey;
 }
