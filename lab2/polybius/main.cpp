@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     string crypted="";
     string pliktekst=argv[1];
    string plikszyfr=argv[2];
-    int wybor=atoi(argv[3]);                    //wybor odszyfrowania lub szyfrowania
+    int wybor=atoi(argv[3]);
     if(wybor==1)                                //szyfrowanie
     {
         ifstream openfile(pliktekst.c_str());

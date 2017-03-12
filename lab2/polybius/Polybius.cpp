@@ -18,7 +18,7 @@ string PolybiusCrypt(string message)
    {
     if(message[i]==' ') i++;                                                    //pomija spacje które pobraliśmy z getline
        if(message[i]<=90){message[i]+=32;}                                      //zmienia duże litery na małe
-       crypted_word+=crypt[message[i]];                                         //szuka klucza<message[i] w mapie crypt
+       crypted_word+=crypt[message[i]];                                         //szuka klucza<message[i]> w mapie crypt
     }                                                                           //i dodaje do stringa odpowiadającą mu liczbe
     return crypted_word;
 }
@@ -35,7 +35,7 @@ string PolybiusDecrypt(string crypted)
     {
         if(crypted[i]==' ') i++;
         int licz1=static_cast<int>(crypted[i])-49;                          //zamienia wartość tablicy z char na int
-        int licz2=static_cast<int>(crypted[i+1])-49;                        //i przypisuje je jako liczniki pokazujace na odpowiedni element w tablicy
+        int licz2=static_cast<int>(crypted[i+1])-49;                        //przypisuje je jako liczniki pokazujace na odpowiedni element w tablicy
         message+=crypt[licz1][licz2];
     }
     return message;
