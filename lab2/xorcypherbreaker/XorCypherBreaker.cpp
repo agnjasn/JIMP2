@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string nextkey(string key)
+string nextkey(string key) //generuje "nastepny" klucz, np dostaje "stres" i zwraca "stret"
 {
     int length = key.length();
 
@@ -18,7 +18,7 @@ string nextkey(string key)
 
     if (length==0)
     {
-        return "";
+        return ""; //zwraca nielegalny klucz jak to juz koniec kluczy
     }
     key[length-1]++;
 
@@ -38,16 +38,16 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram,
 
     for (int i=0; i<key_length; i++)
     {
-        key+='a';
+        key+='a'; //"pierwszy" klucz
     }
 
-    do // pętla idąca po kluczach
+    do // pętla idąca po kluczach, skonczy sie jak dostanie nielegalny klucz
     {
         wordcount=0;
 
         for (int i=0; i<cryptogram.size(); i++) // deszyfrowanie danym kluczem
         {
-            decrypted.push_back(cryptogram[i]^key[i%key_length]);
+            decrypted.push_back(cryptogram[i]^key[i%key_length]); //^ to xor
         }
 
         for (int i=0; i<decrypted.size(); i++) //szukanie słów i szukanie ich w słowniku
