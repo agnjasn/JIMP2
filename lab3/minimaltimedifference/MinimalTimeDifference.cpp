@@ -14,13 +14,15 @@ namespace minimaltimedifference {
     unsigned int ToMinutes(std::string time_HH_MM) {
 
 
-        regex pattern {R"((\d{1,2}):\(d{2}))"};
+        regex pattern {R"((\d{1,2}):(\d{2}))"};
         smatch matches;
 
         regex_match(time_HH_MM, matches, pattern);
 
-        int h= atoi(static_cast<string>(matches[1]).c_str());
-        int m= atoi(static_cast<string>(matches[2]).c_str());
+        string hstr = matches[1];
+        string mstr = matches[2];
+        int h= stoi(hstr);
+        int m= stoi(mstr);
 
         unsigned int minutes=60*h+m;
         return minutes;
