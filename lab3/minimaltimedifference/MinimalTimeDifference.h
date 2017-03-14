@@ -12,6 +12,7 @@ namespace minimaltimedifference
         {
     unsigned int ToMinutes(std::string time_HH_MM);
     unsigned int MinimalTimeDifference(std::vector<std::string> times);
+    int StringtoInt(std::string text);
         };
 
 
