@@ -37,29 +37,29 @@ namespace minimaltimedifference {
     }
 
     unsigned int MinimalTimeDifference(std::vector<std::string> times) {
-        unsigned int MinimalTimeDifference = 720;
-        vector<int> TimeInMinutes;
+        unsigned int minimal_time_diff = 720;
+        vector<int> time_in_minutes;
         int diff = 0;
 
         for (int i = 0; i < times.size(); i++) {
-            TimeInMinutes.push_back(ToMinutes(times[i]));
+            time_in_minutes.push_back(ToMinutes(times[i]));
         }
 
         for (int i = 0; i < times.size() - 1; i++) {
             for (int j = i + 1; j < times.size(); j++) {
-                diff = abs(TimeInMinutes[i] - TimeInMinutes[j]);
+                diff = abs(time_in_minutes[i] - time_in_minutes[j]);
 
                 if (diff > 720) {
                     diff = 1440 - diff;
                 }
 
-                if (diff < MinimalTimeDifference) {
-                    MinimalTimeDifference = diff;
+                if (diff < minimal_time_diff) {
+                    minimal_time_diff = diff;
                 }
             }
 
         }
 
-        return MinimalTimeDifference;
+        return minimal_time_diff;
     }
 }
