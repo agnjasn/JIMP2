@@ -10,7 +10,15 @@
 
 namespace minimaltimedifference {
     using namespace std;
+    int StringtoInt(std::string text)
+    {
+        stringstream ss;
+        int value;
+        ss<<text;
+        ss>>value;
+        return value;
 
+    }
     unsigned int ToMinutes(std::string time_HH_MM) {
 
 
