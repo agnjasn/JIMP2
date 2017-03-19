@@ -34,6 +34,7 @@ namespace tinyurl {
     {
         string tinyurl(begin((*codec)->hash), end((*codec)->hash)); //przerobienie tego licznika(?) z tej dziwnej tablicy na stringa
         (*codec)->TinyUrlMap.emplace(tinyurl, url); // zapisanie w mapie skróconego i długiego url
+        NextHash(&((*codec)->hash));// nie wiem czy to tu powinno być, z tym działa, bez tego też
         return tinyurl; // zwrócenie tego zakodowanego url bo funkcja sobie tego życzy
 
     }
