@@ -84,7 +84,7 @@ namespace datastructures
         return str;
     }
 
-    int StringtoInt(std::string text)  //zmienia stringi na inty
+    int StringtoInt(std::string text)
     {
         std::stringstream ss;
         int value;
@@ -94,13 +94,12 @@ namespace datastructures
 
     }
 
-    std::string DoString(const std::string &tree) //robi z tego brzydkiego ciagu taki z #
+    std::string DoString(std::string &tree) //robi z tego brzydkiego ciagu taki z #
     {
         std::string tmp="";
         for(int i=0; i<tree.length(); i++)
         {
-
-            if(tree[i]>='0' && tree[i]<='9')
+            if(tree[i]>='0' && tree[i]<='9' || tree[i]=='-' || tree[i]==' ')  //dodałam - żeby nie zgubiło ujemnej liczby
             {
                 tmp+=tree[i];
             }
@@ -109,17 +108,26 @@ namespace datastructures
                 tmp+="#";
                 i+=4;
             }
-            else if(tree[i]==' ') tmp+=" ";
         }
         return tmp;
     }
 
-    std::unique_ptr <SmartTree> RestoreTree(const std::string &tree) { //tutaj narazie nic sie nie robi
-
-            std::string tmp=DoString(tree);  //tylko sobie wywołuje żeby tego string zmienić
-            std::unique_ptr<SmartTree> root = std::make_unique<SmartTree>();
-            return root;
+    std::unique_ptr <SmartTree> HelpWithRestore(std::istringstream &iss)  //tu sie dzieje magia
+    {
+        std::string value;
+        iss >> value;  //wpisuje do stringa wartosci
+        if (value == "#") return nullptr; //zwracam nullptr, czyli oznaczenie liścia
+        std::unique_ptr<SmartTree> root = CreateLeaf(StringtoInt(value));  //tworze liść od wartości skonwertowanej na int
+        root->left = HelpWithRestore(iss);  //wywołuje ta funkcje dla synów
+        root->right = HelpWithRestore(iss);
+        return root;
+    }
+    std::unique_ptr <SmartTree> RestoreTree(const std::string &tree) { //tutaj sie tylko wywołuje funkcje
+        std::string str=tree;
+        std::string tmp=DoString(str);   //zmienia mi na ten ładny ciąg z #
+        std::istringstream iss(tmp);      //wpisuje stringa do strumienia
+        return HelpWithRestore(iss);      //i wysyłam go do innej funkcji, którą zwróce do wskaźnika
 
     }
-
+        // http://media.tumblr.com/tumblr_md3n9xgTiA1qhnsxb.gif
 }
