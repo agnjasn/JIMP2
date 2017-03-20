@@ -25,6 +25,7 @@ namespace datastructures
     std::unique_ptr <SmartTree> RestoreTree(const std::string &tree);
     int StringtoInt(std::string text);
     void PrintTreePreOrder(const std::unique_ptr<SmartTree> &unique_ptr, std::ostream *out);
+    std::string DoString(const std::string &tree);
 }
 
 

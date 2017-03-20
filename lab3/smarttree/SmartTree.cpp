@@ -5,14 +5,14 @@
 #include "SmartTree.h"
 #include <iostream>
 #include <sstream>
-#include <regex>
+
 namespace datastructures
 {
     std::unique_ptr <SmartTree> CreateLeaf(int value)
     {
         std::unique_ptr <SmartTree> leaf=std::make_unique <SmartTree>();        //rezerwuje miejsce
         leaf->value=value;
-        leaf->left=nullptr;                                                     //wskaźniki na synów
+        leaf->left=nullptr;      //wskaźniki na synów
         leaf->right=nullptr;
         return leaf;
     }
@@ -21,12 +21,12 @@ namespace datastructures
     {
        while(tree!= nullptr)
        {
-           if(!tree->left)                                  //jak nie ma lewego syna, to left_subtree się nim staje
+           if(!tree->left)    //jak nie ma lewego syna, to left_subtree się nim staje
            {
-               tree->left = std::move(left_subtree);        //move przypisuje wskaźnik do innego obiektu
+               tree->left = std::move(left_subtree);     //move przypisuje wskaźnik do innego obiektu
                break;
            }
-           else tree->left= std::move(tree);               //jak jest, to idziemy dalej po drzewie
+           else tree->left= std::move(tree);         //jak jest, to idziemy dalej po drzewie
            tree = std::move(left_subtree->tree);
        }
         return tree;
@@ -66,9 +66,9 @@ namespace datastructures
         {
             (*out)<<" ["<<unique_ptr->value;
             PrintTreePreOrder(unique_ptr->left, out);
-            if(unique_ptr->left== nullptr) (*out) << " [none]";                             //wyświetla none, jak nie ma lewego syna
+            if(unique_ptr->left== nullptr) (*out) << " [none]";      //wyświetla none, jak nie ma lewego syna
             PrintTreePreOrder(unique_ptr->right, out);
-            if(unique_ptr->right== nullptr) (*out) << " [none]";                            //a tu dla prawego
+            if(unique_ptr->right== nullptr) (*out) << " [none]";    //a tu dla prawego
             (*out) << "]";
         }
 
@@ -79,12 +79,12 @@ namespace datastructures
         PrintTreePreOrder(tree, &ss);
         std::string str;
         char wyciagam_ta_glupia_spacje;
-        ss.get(wyciagam_ta_glupia_spacje);
-        getline(ss, str);                                                                   //wsadza ze strumienia do stringa całe drzewo
+        ss.get(wyciagam_ta_glupia_spacje); //wyciagam ze strumienia jednego chara
+        getline(ss, str);        //wsadza ze strumienia do stringa całe drzewo
         return str;
     }
 
-    int StringtoInt(std::string text)
+    int StringtoInt(std::string text)  //zmienia stringi na inty
     {
         std::stringstream ss;
         int value;
@@ -94,15 +94,30 @@ namespace datastructures
 
     }
 
-    std::unique_ptr <SmartTree> RestoreTree(const std::string &tree) {
+    std::string DoString(const std::string &tree) //robi z tego brzydkiego ciagu taki z #
+    {
+        std::string tmp="";
+        for(int i=0; i<tree.length(); i++)
+        {
 
-//            std::regex pattern{R"(-{0,1}\d{1,})"};
-//            std::smatch match;
-//            std::regex_match(tree, match, pattern);
+            if(tree[i]>='0' && tree[i]<='9')
+            {
+                tmp+=tree[i];
+            }
+            else if(tree[i]=='n')
+            {
+                tmp+="#";
+                i+=4;
+            }
+            else if(tree[i]==' ') tmp+=" ";
+        }
+        return tmp;
+    }
 
+    std::unique_ptr <SmartTree> RestoreTree(const std::string &tree) { //tutaj narazie nic sie nie robi
+
+            std::string tmp=DoString(tree);  //tylko sobie wywołuje żeby tego string zmienić
             std::unique_ptr<SmartTree> root = std::make_unique<SmartTree>();
-            root->left = RestoreTree(tree);
-            root->right = RestoreTree(tree);
             return root;
 
     }

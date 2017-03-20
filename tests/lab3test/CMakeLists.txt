@@ -17,12 +17,5 @@ add_gtest_with_memleak(minimal_time_difference libminimaltimedifference)
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab3_all_tests ${SOURCE_FILES})
 
-target_link_libraries(lab3_all_tests ${GTEST_LIBS})
-target_link_libraries(lab3_all_tests libsmarttree)
-target_link_libraries(lab3_all_tests libtinyurl)
-target_link_libraries(lab3_all_tests libccounter)
-target_link_libraries(lab3_all_tests libminimaltimedifference)
-target_link_libraries(lab3_all_tests memleak)
-target_link_libraries(lab3_all_tests stringutility)
+
