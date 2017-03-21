@@ -4,7 +4,7 @@
 
 #ifndef JIMP_EXERCISES_SQUARE_H
 #define JIMP_EXERCISES_SQUARE_H
-namespace sq
+namespace geometry
 {
 
     class Square {

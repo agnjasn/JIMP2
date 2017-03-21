@@ -3,7 +3,7 @@
 //
 
 #include "Square.h"
-namespace sq
+namespace geometry
 {
 
 }
