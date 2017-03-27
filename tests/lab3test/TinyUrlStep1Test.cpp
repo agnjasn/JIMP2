@@ -6,7 +6,9 @@
 #include <array>
 #include <memory>
 #include <MemLeakTest.h>
-#include <TinyUrl.h>
+#include "TinyUrl.h"
+
+using namespace tinyurl;
 
 using TestParam = std::pair<std::string, std::string>;
 
