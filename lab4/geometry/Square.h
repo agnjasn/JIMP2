@@ -16,7 +16,7 @@ namespace geometry
         Square(geometry::Point PUL, Point PUR, Point PDL, Point PDR );
         ~Square();
 
-        bool Check();
+       // bool Check();
         double Circumference();
         double Area();
 
