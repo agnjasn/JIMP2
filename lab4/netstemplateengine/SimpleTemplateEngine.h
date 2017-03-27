@@ -26,8 +26,8 @@ namespace nets
 
     private:
         std::string what_i_get;
-        std::vector <std::string> parts;
-        std::vector <std::string> blanks;
+//        std::vector <std::string> parts;
+//        std::vector <std::string> blanks;
 
    //     std::regex p {"\\{\\{([\w|_]+)\\}\\}"};
 
