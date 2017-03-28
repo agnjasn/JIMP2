@@ -24,6 +24,7 @@ namespace memorychunk
 
     private:
         int8_t *ptr;
+        size_t sz;
     };
 
 
