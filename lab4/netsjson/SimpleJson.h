@@ -28,7 +28,7 @@ namespace nets
         std::string ToString() const;
 
     private:
-        optional <int> value1;
+        std::experimental::optional <int> value1;
         optional <double> value2;
         optional <std::string> value3;
         optional <bool> value4;
