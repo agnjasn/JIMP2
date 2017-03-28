@@ -11,6 +11,31 @@
 
 namespace nets
 {
+    using std::experimental::optional;
+
+    class JsonValue
+    {
+    public:
+
+        JsonValue(int a);
+        JsonValue(double a);
+        JsonValue(std::string a);
+        JsonValue(bool a);
+        JsonValue(std::vector<JsonValue> a);
+        JsonValue(std::map<std::string, JsonValue> a);
+        ~JsonValue();
+        std::experimental::optional<JsonValue> ValueByName(const std::string &name) const;
+        std::string ToString() const;
+
+    private:
+        optional <int> value1;
+        optional <double> value2;
+        optional <std::string> value3;
+        optional <bool> value4;
+        optional <std::vector<JsonValue>> vector;
+        std::map <std::string, JsonValue> map;
+
+    };
 //    class JsonValue
 //    { public:
 //        struct obiekt

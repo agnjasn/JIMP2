@@ -13,10 +13,13 @@ using ::std::map;
 using ::std::cout;
 using ::std::endl;
 using ::std::string;
-//using ::nets::JsonValue;
+using ::nets::JsonValue;
 using ::std::literals::operator""s;
 
 int main() {
+
+    return 0;
+}
 
 //    vector<JsonValue> js {JsonValue{56.6},JsonValue{45},JsonValue{"abc"s}};
 //    map<string, JsonValue> obj_v {{"values",JsonValue{js}},{"name",JsonValue{"Test name"}},{"age",JsonValue{13}}};
@@ -33,4 +36,3 @@ int main() {
 //    } else {
 //        cout << "is absent" << endl;
 //    }
-}

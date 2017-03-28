@@ -14,8 +14,6 @@
 
 namespace nets
 {
-
-
     class View
     {
     public:
@@ -30,7 +28,6 @@ namespace nets
 //        std::vector <std::string> blanks;
 
    //     std::regex p {"\\{\\{([\w|_]+)\\}\\}"};
-
 
     };
 }
