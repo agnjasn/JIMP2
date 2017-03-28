@@ -20,17 +20,11 @@ namespace nets
     {
     public:
         View(const std::string &pattern);
-     //   void MakeTemplate (const std::string &pattern);
         std::string Render(const std::unordered_map <std::string, std::string> &model)const;
 
 
     private:
         std::string what_i_get;
-//        std::vector <std::string> parts;
-//        std::vector <std::string> blanks;
-
-   //     std::regex p {"\\{\\{([\w|_]+)\\}\\}"};
-
 
     };
 }
