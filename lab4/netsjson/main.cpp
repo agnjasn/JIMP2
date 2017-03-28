@@ -18,6 +18,7 @@ using ::std::literals::operator""s;
 
 int main() {
 
+    int aga;
     return 0;
 }
 
