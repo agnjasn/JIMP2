@@ -32,8 +32,8 @@ namespace nets
         optional <double> value2;
         optional <std::string> value3;
         optional <bool> value4;
-        optional <std::vector<JsonValue>> vector;
-        std::map <std::string, JsonValue> map;
+        optional <std::vector<JsonValue>> vector1;
+        std::map <std::string, JsonValue> map1;
 
     };
 //    class JsonValue

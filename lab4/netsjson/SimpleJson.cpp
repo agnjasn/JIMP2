@@ -12,27 +12,27 @@
 namespace nets {
 
     JsonValue::JsonValue(int a) {
-        value1 = a;
+        this->value1 = a;
     }
 
     JsonValue::JsonValue(double a) {
-        value2 = a;
+        this->value2 = a;
     }
 
     JsonValue::JsonValue(std::string a) {
-        value3 = a;
+        this->value3 = a;
     }
 
     JsonValue::JsonValue(bool a) {
-        value4 = a;
+        this->value4 = a;
     }
 
     JsonValue::JsonValue(std::vector<JsonValue> a) {
-        vector = a;
+        this->vector1 = a;
     }
 
     JsonValue::JsonValue(std::map<std::string, JsonValue> a) {
-        map.insert(a.begin(), a.end());
+        this->map1.insert(a.begin(), a.end());
     }
 
     JsonValue::~JsonValue()
@@ -42,8 +42,12 @@ namespace nets {
 
     std::experimental::optional<JsonValue> JsonValue::ValueByName(const std::string &name) const {
 
-        std::experimental::optional<JsonValue> a = std::experimental::make_optional(this->map.find(name)->second);
-        return a;
+        if (auto got = map1.find(name)==map1.end())
+            return std::experimental::optional <JsonValue> {};
+        else {
+            std::experimental::optional<JsonValue> a = std::experimental::make_optional(this->map1.find(name)->second);
+            return a;
+        }
        return std::experimental::optional<JsonValue>{};
     }
 
