@@ -22,9 +22,10 @@ namespace memorychunk
     }
 
     MemoryChunk::MemoryChunk(const MemoryChunk &m) {
-        ptr = new int8_t[m.ChunkSize()];
-        std::copy(m.ptr,m.ptr+sz, ptr);
         sz=m.ChunkSize();
+        this->ptr = new int8_t[sz];
+        std::copy(m.ptr, (m.ptr + sz), ptr);
+
     }
 
     MemoryChunk::MemoryChunk(MemoryChunk &&m) {
