@@ -28,12 +28,8 @@ namespace nets
         std::string ToString() const;
 
     private:
-        std::experimental::optional <int> value1;
-        optional <double> value2;
-        optional <std::string> value3;
-        optional <bool> value4;
-        optional <std::vector<JsonValue>> vector1;
-        std::map <std::string, JsonValue> map1;
+
+
 
     };
 //    class JsonValue
