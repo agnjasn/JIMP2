@@ -9,16 +9,27 @@ using std::endl;
 using namespace algebra;
 
 int main(int argc, char* argv[]){
-    Matrix m1(argv[1]);
-    Matrix m2(argv[2]);
+    Matrix m1{{1, 2, 3}, {2, 3, 4}};
 
-    cout << "Macierz pierwsza: " << m1.print() << endl;
-    cout << "Macierz druga: " << m2.print() << endl;
+    std::string a=m1.Print();
+    cout<<a;
+    Matrix m2{{1, 0, 3}, {5, 3, 4}};
+    Matrix m3=m1.Add(m2);
+    cout<<endl<<m2.Print()<<endl<<m3.Print();
 
-    cout << "Dodawanie" << (m1.add(m2)).print() << endl;
-    cout << "Odejmowanie" << (m1.sub(m2)).print() << endl;
-    cout << "Mnożenie" << (m1.mul(m2)).print() << endl;
-    cout << "Dzielenie" << (m1.div(m2)).print() << endl;
-    cout << "Potęgowanie" << (m1.pow(2)).print() << endl;
-    cout << "Potęgowanie" << (m2.pow(2)).print() << endl;
+
+//    Matrix m1(argv[1]);
+//    Matrix m2(argv[2]);
+//
+//    cout << "Macierz pierwsza: " << m1.Print() << endl;
+//    cout << "Macierz druga: " << m2.Print() << endl;
+//
+//    cout << "Dodawanie" << (m1.Add(m2)).Print() << endl;
+//    cout << "Odejmowanie" << (m1.Sub(m2)).Print() << endl;
+//    cout << "Mnożenie" << (m1.Mul(m2)).Print() << endl;
+//    cout << "Dzielenie" << (m1.Div(m2)).Print() << endl;
+//    cout << "Potęgowanie" << (m1.Pow(2)).Print() << endl;
+//    cout << "Potęgowanie" << (m2.Pow(2)).Print() << endl;
+
+    return 0;
 }

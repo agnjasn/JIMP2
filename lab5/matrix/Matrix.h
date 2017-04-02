@@ -6,8 +6,10 @@
 #define JIMP_EXERCISES_MATRIX_H
 #include <complex>
 #include <string.h>
+#include <vector>
 namespace algebra
 {
+
     class Matrix
     {
     public:
@@ -16,25 +18,33 @@ namespace algebra
         Matrix(const Matrix &m);
         Matrix(const char* ch);
         Matrix(std::string str);
+        Matrix(const std::initializer_list<std::vector<std::complex<double>>> &m):mat(m)
+        {
+            size.first=mat.size();
+            size.second=mat[0].size();
 
-        std::complex<double> Get() const;
-        void Set(std::complex<double> value);
+        }
+        ~Matrix();
 
-        std::complex<double> **add(std::complex<double> **m2);
-        std::complex<double> **sub(std::complex<double> **m2);
-        std::complex<double> **mul(std::complex<double> **m2);
-        std::complex<double> **div(std::complex<double> **m2);
-        std::complex<double> **mul(std::complex<double> value);
-        std::complex<double> **div(std::complex<double> value);
-        std::complex<double> **pow(int pot);
+        std::complex<double> Get(int row, int col) const;
+        void Set(std::complex<double> value, int row, int col);
 
-        void print(std::complex<double> **m);
+        Matrix Add(const algebra::Matrix &m2)const ;
+        Matrix Sub(const algebra::Matrix &m2)const ;
+        Matrix Mul(const algebra::Matrix &m2)const ;
+        Matrix Div(const algebra::Matrix &m2)const ;
+        Matrix Pow(int pot);
+
+        std::pair<size_t, size_t> Size() const;
+
+        std::string Print()const;
+
 
 
     private:
-        int rows;
-        int col;
-        std::complex<double> **mat;
+                //rows, cols
+        std::pair<size_t , size_t > size;
+        std::vector<std::vector<std::complex<double>>> mat;
     };
 }
 
