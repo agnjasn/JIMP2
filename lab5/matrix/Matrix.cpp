@@ -87,7 +87,22 @@ namespace algebra
     }
 
     algebra::Matrix Matrix::Mul(const algebra::Matrix &m2) const {
-        return algebra::Matrix();
+        Matrix m3(size.first, m2.size.second);
+        std::complex<double> tmp=0.;
+        for(int i=0; i<size.first; i++)
+        {
+            for(int j=0; j<m2.size.second; j++)
+            {
+                for(int h=0; h<m2.size.first; h++)
+                {
+                    tmp+=(mat[i][h]*m2.mat[h][j]);
+                }
+                m3.Set(tmp,i,j);
+                tmp=0.;
+
+            }
+        }
+        return m3;
     }
 
 
