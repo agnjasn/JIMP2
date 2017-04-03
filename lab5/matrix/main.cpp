@@ -12,10 +12,10 @@ int main(int argc, char* argv[]){
     Matrix m1{{1, 2, 3}, {2, 3, 4}};
 
     std::string a=m1.Print();
-    cout<<a;
-    Matrix m2{{1, 0, 3}, {5, 3, 4}};
-    Matrix m3=m1.Add(m2);
-    cout<<endl<<m2.Print()<<endl<<m3.Print();
+    //cout<<a;
+    Matrix m2{{1, 0, 3, 6}, {1, 5, 3, 4}};
+    Matrix m3=m1.Mul(m2);
+    cout<<m3.Print();
 
 
 //    Matrix m1(argv[1]);

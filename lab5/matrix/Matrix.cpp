@@ -7,21 +7,26 @@
 #include <sstream>
 namespace algebra
 {
-    std::string dtos(double x) {
-        std::stringstream s;  // Allocates memory on stack
+    std::string dtos(double x) { // funkcja przerabiająca double na stringa BEZ ZER NA KOŃCU
+        std::stringstream s;
         s << x;
-        return s.str();       // returns a s.str() as a string by value
-        // Frees allocated memory of s
+        return s.str();
     }
 
-    Matrix::Matrix() {
+    Matrix::Matrix() { // konstruktor bezparametrowy robiący pustą macierz
 
+        size.first=0;
+        size.second=0;
+        mat.resize(0);
     }
 
-    Matrix::Matrix(int rows, int col) {
-        size.first=rows;
+    Matrix::Matrix(int rows, int col) { //konstruktor parametrowy (parametryczny?) robiący macierz z podanych wymiarów
+        size.first=rows; //przypisanie rozmiaru
         size.second=col;
-        mat.resize(rows);
+
+        // TA LINIJKA JEST SUPER WAŻNA
+        mat.resize(rows); //nadaje rozmiar wektorwoi w ktorym przechowuje liczby macierzy
+        //JAK JEJ NIE MA TO WYSKAKUJE TEN BŁĄD Z STACKDUMP FILE
 
         for(int i=0; i<rows; i++)
         {
@@ -31,7 +36,7 @@ namespace algebra
 
     }
 
-    Matrix::Matrix(const Matrix &m) {
+    Matrix::Matrix(const Matrix &m) { //konstruktor kopiujący
         size=m.Size();
         mat=m.mat;
 
@@ -45,64 +50,80 @@ namespace algebra
 
     }
 
-    std::complex<double> Matrix::Get(int row, int col) const {
+    std::complex<double> Matrix::Get(int row, int col) const { // zwraca wartość podaneo elementu macierzy
         return mat[row][col];
     }
 
-    void Matrix::Set(std::complex<double> value, int row, int col) {
+    void Matrix::Set(std::complex<double> value, int row, int col) { // ustawia daną wartośc na danym elemencie macierzy
 
         mat[row][col]=value;
     }
 
     algebra::Matrix Matrix::Add(const algebra::Matrix &m2) const {
 
-        algebra::Matrix m3(size.first, size.second);
-        size_t r=size.first, c=size.second;
-        for(int i=0; i<r; i++)
-        {
-            for (int j=0; j<c; j++)
-            {
-                m3.Set(this->mat[i][j]+m2.mat[i][j], i, j);
+        if (size.second != m2.size.second || size.first != m2.size.first) { // sprawdzanie czy wymiary są zgodne
+            return Matrix(); //jak nie to zwróc pustą macierz
+        } else {
+            algebra::Matrix m3(size.first, size.second); // nowa macierz o wymiarach takich samych jak tamte
+            size_t r = size.first, c = size.second;
+            for (int i = 0; i < r; i++) {
+                for (int j = 0; j < c; j++) {
+                    m3.Set(this->mat[i][j] + m2.mat[i][j], i, j); // przypisanie nowej macierzy wartości
+                }
             }
+
+
+            return m3;
         }
-
-
-        return m3;
     }
 
     algebra::Matrix Matrix::Sub(const algebra::Matrix &m2) const {
 
-        algebra::Matrix m3(size.first, size.second);
-        size_t r=size.first, c=size.second;
-        for(int i=0; i<r; i++)
+        if (size.second!=m2.size.second || size.first!=m2.size.first) // czy wymiary zgodne
         {
-            for (int j=0; j<c; j++)
+            return Matrix(0,0); // jak nie to zwróć pustą
+        } else{
+            algebra::Matrix m3(size.first, size.second); //nowa
+            size_t r=size.first, c=size.second;
+            for(int i=0; i<r; i++)
             {
-                m3.Set(this->mat[i][j]-m2.mat[i][j], i, j);
+                for (int j=0; j<c; j++)
+                {
+                    m3.Set(this->mat[i][j]-m2.mat[i][j], i, j);
+                }
             }
+
+
+            return m3;
         }
 
-
-        return m3;
     }
 
     algebra::Matrix Matrix::Mul(const algebra::Matrix &m2) const {
-        Matrix m3(size.first, m2.size.second);
-        std::complex<double> tmp=0.;
-        for(int i=0; i<size.first; i++)
+        if (size.second!=m2.size.first) // sprawdzenie cwymiarów czy można mnożyć
         {
-            for(int j=0; j<m2.size.second; j++)
-            {
-                for(int h=0; h<m2.size.first; h++)
-                {
-                    tmp+=(mat[i][h]*m2.mat[h][j]); // na 100% jest ok
-                }
-                m3.Set(tmp,i,j);
-                tmp=0.;
+            return Matrix(); // jak nie to zwrócenie pustej
+        } else{
 
+            Matrix m3(size.first, m2.size.second); // nowa macierz
+            std::complex<double> tmp=0.; // tymczasowy complex
+            for(int i=0; i<size.first; i++)
+            {
+                for(int j=0; j<m2.size.second; j++)
+                {
+                    for(int h=0; h<m2.size.first; h++)
+                    {
+                        tmp+=(mat[i][h]*m2.mat[h][j]); //sumowanie do tego tymczasowego elementu
+                        // na 100% jest ok
+                    }
+                    m3.Set(tmp,i,j); // wpisanie gotowej sumy na odpowiednie miejsce
+                    tmp=0.;
+
+                }
             }
+            return m3;
         }
-        return m3;
+
     }
 
 
@@ -111,37 +132,63 @@ namespace algebra
     }
 
     algebra::Matrix Matrix::Pow(int pot) {
-        return algebra::Matrix{};
+        if (size.second!=size.first) // sprawdzenie czy macierz jest kwadratowa
+        {
+            return Matrix{}; // jak nie to zwróc pustą
+        } else
+        if (pot==1) return *this; //jak podnosi do pierwszej potęgi to zwróc co masz
+        else if (pot==0) { // jeśli podnosi do 0 potęgi
+                            // to zwróc macierz diagonalną
+            Matrix m3(size.first, size.second); //nowa macierz o wymiarach takich jak pierwotna
+            for (int j=0; j<size.first; j++)
+            {
+                m3.Set(1.0+0.i, j, j); // zwrobienie z niej macierzy diagonalnej
+                // zera poza przekątną się robią same
+            }
+            return m3;
+        } else { // jeśli jakaś inna potęga
+            Matrix m3 = this->Mul(*this);  // zrob nowa macierz na podstawie wymnożonej tej samej ze sobą
+            if (pot==2) return m3; // jeśli potega 2 to ją zwroc
+            else{ // a jeśli nie
+                for (int i=1; i<=pot-2; i++)
+                {
+                    m3 = m3.Mul(*this);  // to mnóż tę nową macierz przez this macierz odpowiednią ilość razy
+                }
+                return m3;
+            }
+        }
     }
 
     std::string Matrix::Print()const  {
 
-        std::string printed="[";
+        if (mat.size()==0)
+            return "[]"; // jak macierz jest pusta to zwraca same []
+        std::string printed="["; //początek stringa
         for (int i=0; i<this->size.first; i++)
         {
             for (int j=0; j<this->size.second; j++)
             {
 
-                printed+= dtos(mat[i][j].real());
+                printed+= dtos(mat[i][j].real()); //dodanie czesci rzeczywistej liczby zespolonej
                 printed+= "i";
-                printed+= dtos(mat[i][j].imag());
+                printed+= dtos(mat[i][j].imag()); //dodanie czesci urojonej liczby zespolonej
                 printed+= ", ";
             }
-            printed.pop_back();
+            printed.pop_back(); //usuwa niepotrzebne ostatnie ", "
             printed.pop_back();
             printed+="; ";
         }
+        printed.pop_back(); //usuwa niepotrzebne ostatnie "; "
         printed.pop_back();
-        printed.pop_back();
-        printed+="]";
+        printed+="]"; // dodaje koniec stringa
         return printed;
     }
 
     std::pair<size_t, size_t> Matrix::Size() const {
-        return size;
+        return size; // zwraca rozmiar macierzy
     }
 
-    Matrix::~Matrix() {
+    Matrix::~Matrix() { //destruktor
 
     }
 }
