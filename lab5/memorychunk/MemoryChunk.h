@@ -14,11 +14,11 @@ namespace memorychunk
     {
     public:
         MemoryChunk(size_t sz);
-        MemoryChunk(const MemoryChunk &m);
-        MemoryChunk(MemoryChunk &&m);
-        MemoryChunk &operator=(const MemoryChunk &m);
-        MemoryChunk &operator=(MemoryChunk &&m);
-        ~MemoryChunk();
+        MemoryChunk(const MemoryChunk &m); //konstruktor kopiujący
+        MemoryChunk(MemoryChunk &&m); //konstruktor przenoszący
+        MemoryChunk &operator=(const MemoryChunk &m); //operator przypisania kopiujący
+        MemoryChunk &operator=(MemoryChunk &&m); //operator przypisania przenoszący
+        ~MemoryChunk(); //destruktor
         int8_t *MemoryAt(size_t offset) const;
         size_t ChunkSize() const;
 

@@ -564,7 +564,7 @@ class Foo {
   virtual ~Foo();
 
   virtual void Pure(int n) = 0;
-  virtual int Concrete(const char* str) { ... }
+  virtual int Concrete(const char* set_of_string) { ... }
 };
 
 class MockFoo : public Foo {
@@ -572,7 +572,7 @@ class MockFoo : public Foo {
   // Mocking a pure method.
   MOCK_METHOD1(Pure, void(int n));
   // Mocking a concrete method.  Foo::Concrete() is shadowed.
-  MOCK_METHOD1(Concrete, int(const char* str));
+  MOCK_METHOD1(Concrete, int(const char* set_of_string));
 };
 ```
 
@@ -591,10 +591,10 @@ class MockFoo : public Foo {
   // Mocking a pure method.
   MOCK_METHOD1(Pure, void(int n));
   // Mocking a concrete method.  Foo::Concrete() is shadowed.
-  MOCK_METHOD1(Concrete, int(const char* str));
+  MOCK_METHOD1(Concrete, int(const char* set_of_string));
 
   // Use this to call Concrete() defined in Foo.
-  int FooConcrete(const char* str) { return Foo::Concrete(str); }
+  int FooConcrete(const char* set_of_string) { return Foo::Concrete(set_of_string); }
 };
 ```
 
@@ -2447,7 +2447,7 @@ class MockFoo : public Foo {
   // where this mock class is used.
 
   MOCK_METHOD0(DoThis, int());
-  MOCK_METHOD1(DoThat, bool(const char* str));
+  MOCK_METHOD1(DoThat, bool(const char* set_of_string));
   ... more mock methods ...
 };
 ```
@@ -2464,7 +2464,7 @@ class MockFoo : public Foo {
   virtual ~MockFoo();
 
   MOCK_METHOD0(DoThis, int());
-  MOCK_METHOD1(DoThat, bool(const char* str));
+  MOCK_METHOD1(DoThat, bool(const char* set_of_string));
   ... more mock methods ...
 };
 ```
@@ -3344,16 +3344,16 @@ pre-defined symbols in the body of `ACTION`:
 
 For example, when using an `ACTION` as a stub action for mock function:
 ```
-int DoSomething(bool flag, int* ptr);
+int DoSomething(bool flag, int* view);
 ```
 we have:
 | **Pre-defined Symbol** | **Is Bound To** |
 |:-----------------------|:----------------|
 | `arg0`                 | the value of `flag` |
 | `arg0_type`            | the type `bool` |
-| `arg1`                 | the value of `ptr` |
+| `arg1`                 | the value of `view` |
 | `arg1_type`            | the type `int*` |
-| `args`                 | the tuple `(flag, ptr)` |
+| `args`                 | the tuple `(flag, view)` |
 | `args_type`            | the type `::testing::tuple<bool, int*>` |
 | `return_type`          | the type `int`  |
 | `function_type`        | the type `int(bool, int*)` |

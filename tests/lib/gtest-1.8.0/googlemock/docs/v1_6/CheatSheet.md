@@ -335,7 +335,7 @@ You can make a matcher from one or more other matchers:
 |`ReturnArg<N>()`|Return the `N`-th (0-based) argument.|
 |`ReturnNew<T>(a1, ..., ak)`|Return `new T(a1, ..., ak)`; a different object is created each time.|
 |`ReturnNull()`|Return a null pointer.             |
-|`ReturnPointee(ptr)`|Return the value pointed to by `ptr`.|
+|`ReturnPointee(view)`|Return the value pointed to by `view`.|
 |`ReturnRef(variable)`|Return a reference to `variable`.  |
 |`ReturnRefOfCopy(value)`|Return a reference to a copy of `value`; the copy lives as long as the action.|
 

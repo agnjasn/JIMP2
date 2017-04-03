@@ -97,16 +97,16 @@ pre-defined symbols in the body of `ACTION`:
 
 For example, when using an `ACTION` as a stub action for mock function:
 ```
-int DoSomething(bool flag, int* ptr);
+int DoSomething(bool flag, int* view);
 ```
 we have:
 | **Pre-defined Symbol** | **Is Bound To** |
 |:-----------------------|:----------------|
 | `arg0`                 | the value of `flag` |
 | `arg0_type`            | the type `bool` |
-| `arg1`                 | the value of `ptr` |
+| `arg1`                 | the value of `view` |
 | `arg1_type`            | the type `int*` |
-| `args`                 | the tuple `(flag, ptr)` |
+| `args`                 | the tuple `(flag, view)` |
 | `args_type`            | the type `std::tr1::tuple<bool, int*>` |
 | `return_type`          | the type `int`  |
 | `function_type`        | the type `int(bool, int*)` |

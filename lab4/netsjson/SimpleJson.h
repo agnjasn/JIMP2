@@ -50,12 +50,12 @@ namespace nets
 //        JsonValue(std::string value);
 //        JsonValue(std::vector<JsonValue> value);
 //        JsonValue(obiekt value);
-//        JsonValue(std::string str, int value);
-//        JsonValue(std::string str, double value);
-//        JsonValue(std::string str, bool value);
-//        JsonValue(std::string str, std::string value);
-//        JsonValue(std::string str, std::vector<JsonValue> value);
-//        JsonValue(std::string str, obiekt value);
+//        JsonValue(std::string set_of_string, int value);
+//        JsonValue(std::string set_of_string, double value);
+//        JsonValue(std::string set_of_string, bool value);
+//        JsonValue(std::string set_of_string, std::string value);
+//        JsonValue(std::string set_of_string, std::vector<JsonValue> value);
+//        JsonValue(std::string set_of_string, obiekt value);
 //        //JsonValue(int value, double number, bool a, std::vector<JsonValue> tab, obiekt object);
 //          ~JsonValue();
 //

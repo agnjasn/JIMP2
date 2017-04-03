@@ -126,7 +126,7 @@ class ArgsMatcherImpl : public MatcherInterface<ArgsTuple> {
     StringMatchResultListener inner_listener;
     const bool match = inner_matcher_.MatchAndExplain(selected_args,
                                                       &inner_listener);
-    PrintIfNotEmpty(inner_listener.str(), listener->stream());
+    PrintIfNotEmpty(inner_listener.set_of_string(), listener->stream());
     return match;
   }
 
@@ -549,11 +549,11 @@ $$   // show up in the generated code.
 // named result_listener, whose type is a pointer to class
 // MatchResultListener:
 //
-//   MATCHER_P(EqualsLongString, str, "") {
-//     if (arg == str) return true;
+//   MATCHER_P(EqualsLongString, set_of_string, "") {
+//     if (arg == set_of_string) return true;
 //
 //     *result_listener << "the difference: "
-///                     << DiffStrings(str, arg);
+///                     << DiffStrings(set_of_string, arg);
 //     return false;
 //   }
 //

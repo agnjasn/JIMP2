@@ -41,13 +41,13 @@ namespace nets {
     }
 
     std::experimental::optional<JsonValue> JsonValue::ValueByName(const std::string &name) const {
-
-        if (auto got = map1.find(name)==map1.end())
-            return std::experimental::optional <JsonValue> {};
-        else {
-            std::experimental::optional<JsonValue> a = std::experimental::make_optional(this->map1.find(name)->second);
-            return a;
-        }
+//
+//        if (auto got = map1.find(name)==map1.end())
+//            return std::experimental::optional <JsonValue> {};
+//        else {
+//            std::experimental::optional<JsonValue> a = std::experimental::make_optional(this->map1.find(name)->second);
+//            return a;
+//        }
        return std::experimental::optional<JsonValue>{};
     }
 
@@ -68,7 +68,6 @@ namespace nets {
         }
         if(value3) return value3.value();
     }
-    int aga;
 }
 
 
@@ -99,29 +98,29 @@ namespace nets {
 //    {
 //        this->obj=value;
 //    }
-//    JsonValue::JsonValue(std::string str, int value)
+//    JsonValue::JsonValue(std::string set_of_string, int value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
-//    JsonValue::JsonValue(std::string str, double value)
+//    JsonValue::JsonValue(std::string set_of_string, double value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
-//    JsonValue::JsonValue(std::string str, bool value)
+//    JsonValue::JsonValue(std::string set_of_string, bool value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
-//    JsonValue::JsonValue(std::string str, std::string value)
+//    JsonValue::JsonValue(std::string set_of_string, std::string value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
-//    JsonValue::JsonValue(std::string str, std::vector<JsonValue> value)
+//    JsonValue::JsonValue(std::string set_of_string, std::vector<JsonValue> value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
-//    JsonValue::JsonValue(std::string str, obiekt value)
+//    JsonValue::JsonValue(std::string set_of_string, obiekt value)
 //    {
-//        this->obj.mapa.emplace(str, JsonValue(value));
+//        this->obj.mapa.emplace(set_of_string, JsonValue(value));
 //    }
 //    std::experimental::optional<JsonValue> JsonValue::ValueByName(const std::string &name) const
 //    {
