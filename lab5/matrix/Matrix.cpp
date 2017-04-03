@@ -95,7 +95,7 @@ namespace algebra
             {
                 for(int h=0; h<m2.size.first; h++)
                 {
-                    tmp+=(mat[i][h]*m2.mat[h][j]);
+                    tmp+=(mat[i][h]*m2.mat[h][j]); // na 100% jest ok
                 }
                 m3.Set(tmp,i,j);
                 tmp=0.;
