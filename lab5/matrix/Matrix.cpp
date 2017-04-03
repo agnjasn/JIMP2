@@ -17,7 +17,7 @@ namespace algebra
 
         size.first=0;
         size.second=0;
-        mat.resize(0);
+        data.resize(0);
     }
 
     Matrix::Matrix(int rows, int col) { //konstruktor parametrowy (parametryczny?) robiący macierz z podanych wymiarów
@@ -25,12 +25,12 @@ namespace algebra
         size.second=col;
 
         // TA LINIJKA JEST SUPER WAŻNA
-        mat.resize(rows); //nadaje rozmiar wektorwoi w ktorym przechowuje liczby macierzy
+        data.resize(rows); //nadaje rozmiar wektorwoi w ktorym przechowuje liczby macierzy
         //JAK JEJ NIE MA TO WYSKAKUJE TEN BŁĄD Z STACKDUMP FILE
 
         for(int i=0; i<rows; i++)
         {
-            mat[i].resize(col);
+            data[i].resize(col);
         }
 
 
@@ -38,7 +38,7 @@ namespace algebra
 
     Matrix::Matrix(const Matrix &m) { //konstruktor kopiujący
         size=m.Size();
-        mat=m.mat;
+        data=m.data;
 
     }
 
@@ -51,12 +51,12 @@ namespace algebra
     }
 
     std::complex<double> Matrix::Get(int row, int col) const { // zwraca wartość podaneo elementu macierzy
-        return mat[row][col];
+        return data[row][col];
     }
 
     void Matrix::Set(std::complex<double> value, int row, int col) { // ustawia daną wartośc na danym elemencie macierzy
 
-        mat[row][col]=value;
+        data[row][col]=value;
     }
 
     algebra::Matrix Matrix::Add(const algebra::Matrix &m2) const {
@@ -68,7 +68,7 @@ namespace algebra
             size_t r = size.first, c = size.second;
             for (int i = 0; i < r; i++) {
                 for (int j = 0; j < c; j++) {
-                    m3.Set(this->mat[i][j] + m2.mat[i][j], i, j); // przypisanie nowej macierzy wartości
+                    m3.Set(this->data[i][j] + m2.data[i][j], i, j); // przypisanie nowej macierzy wartości
                 }
             }
 
@@ -89,7 +89,7 @@ namespace algebra
             {
                 for (int j=0; j<c; j++)
                 {
-                    m3.Set(this->mat[i][j]-m2.mat[i][j], i, j);
+                    m3.Set(this->data[i][j]-m2.data[i][j], i, j);
                 }
             }
 
@@ -113,7 +113,7 @@ namespace algebra
                 {
                     for(int h=0; h<m2.size.first; h++)
                     {
-                        tmp+=(mat[i][h]*m2.mat[h][j]); //sumowanie do tego tymczasowego elementu
+                        tmp+=(data[i][h]*m2.data[h][j]); //sumowanie do tego tymczasowego elementu
                         // na 100% jest ok
                     }
                     m3.Set(tmp,i,j); // wpisanie gotowej sumy na odpowiednie miejsce
@@ -131,13 +131,13 @@ namespace algebra
         return algebra::Matrix{};
     }
 
-    algebra::Matrix Matrix::Pow(int pot) {
+    algebra::Matrix Matrix::Pow(int power) {
         if (size.second!=size.first) // sprawdzenie czy macierz jest kwadratowa
         {
             return Matrix{}; // jak nie to zwróc pustą
         } else
-        if (pot==1) return *this; //jak podnosi do pierwszej potęgi to zwróc co masz
-        else if (pot==0) { // jeśli podnosi do 0 potęgi
+        if (power==1) return *this; //jak podnosi do pierwszej potęgi to zwróc co masz
+        else if (power==0) { // jeśli podnosi do 0 potęgi
                             // to zwróc macierz diagonalną
             Matrix m3(size.first, size.second); //nowa macierz o wymiarach takich jak pierwotna
             for (int j=0; j<size.first; j++)
@@ -148,9 +148,9 @@ namespace algebra
             return m3;
         } else { // jeśli jakaś inna potęga
             Matrix m3 = this->Mul(*this);  // zrob nowa macierz na podstawie wymnożonej tej samej ze sobą
-            if (pot==2) return m3; // jeśli potega 2 to ją zwroc
+            if (power==2) return m3; // jeśli potega 2 to ją zwroc
             else{ // a jeśli nie
-                for (int i=1; i<=pot-2; i++)
+                for (int i=1; i<=power-2; i++)
                 {
                     m3 = m3.Mul(*this);  // to mnóż tę nową macierz przez this macierz odpowiednią ilość razy
                 }
@@ -161,7 +161,7 @@ namespace algebra
 
     std::string Matrix::Print()const  {
 
-        if (mat.size()==0)
+        if (data.size()==0)
             return "[]"; // jak macierz jest pusta to zwraca same []
         std::string printed="["; //początek stringa
         for (int i=0; i<this->size.first; i++)
@@ -169,9 +169,9 @@ namespace algebra
             for (int j=0; j<this->size.second; j++)
             {
 
-                printed+= dtos(mat[i][j].real()); //dodanie czesci rzeczywistej liczby zespolonej
+                printed+= dtos(data[i][j].real()); //dodanie czesci rzeczywistej liczby zespolonej
                 printed+= "i";
-                printed+= dtos(mat[i][j].imag()); //dodanie czesci urojonej liczby zespolonej
+                printed+= dtos(data[i][j].imag()); //dodanie czesci urojonej liczby zespolonej
                 printed+= ", ";
             }
             printed.pop_back(); //usuwa niepotrzebne ostatnie ", "

@@ -18,10 +18,10 @@ namespace algebra
         Matrix(const Matrix &m);
         Matrix(const char* ch);
         Matrix(std::string str);
-        Matrix(const std::initializer_list<std::vector<std::complex<double>>> &m):mat(m)
+        Matrix(const std::initializer_list<std::vector<std::complex<double>>> &m):data(m)
         {
-            size.first=mat.size();
-            size.second=mat[0].size();
+            size.first=data.size();
+            size.second=data[0].size();
 
         }
         ~Matrix();
@@ -33,7 +33,7 @@ namespace algebra
         Matrix Sub(const algebra::Matrix &m2)const ;
         Matrix Mul(const algebra::Matrix &m2)const ;
         Matrix Div(const algebra::Matrix &m2)const ;
-        Matrix Pow(int pot);
+        Matrix Pow(int power);
 
         std::pair<size_t, size_t> Size() const;
 
@@ -44,7 +44,7 @@ namespace algebra
     private:
                 //rows, cols
         std::pair<size_t , size_t > size;
-        std::vector<std::vector<std::complex<double>>> mat;
+        std::vector<std::vector<std::complex<double>>> data;
     };
 }
 
