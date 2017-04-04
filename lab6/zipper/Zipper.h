@@ -1,16 +1,20 @@
 //
-// Created by Pomidor on 04.04.2017.
+// Created by Kinga on 04.04.2017.
 //
 
 #ifndef JIMP_EXERCISES_ZIPPER_H
 #define JIMP_EXERCISES_ZIPPER_H
 
 
+namespace datastructures
+{
 
-class Zipper {
+    class Zipper
+    {
 
+
+    };
 };
-
 
 
 #endif //JIMP_EXERCISES_ZIPPER_H
