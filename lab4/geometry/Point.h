@@ -38,11 +38,17 @@ namespace geometry {
         void SetX(double x);
 
         void SetY(double y);
-
+        friend std::istream& operator>>(std::istream &, Point&);
+        friend std::ostream& operator<<(std::ostream & output, Point& p);
+        friend std::stringstream& operator<<(std::stringstream & output, Point& point);
     private:
         //w przeciwienstwie do pythona C++ wymaga jawnej deklaracji składowych pól klasy:
         double x_, y_;
     };
+
+    std::istream& operator>>(std::istream &is, Point& point);
+    std::ostream& operator<<(std::ostream & output, Point& p);
+    std::stringstream& operator<<(std::stringstream & output, Point& point);
 }
 
 #endif //JIMP_EXERCISES_POINT_H
