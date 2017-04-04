@@ -5,18 +5,41 @@
 #ifndef JIMP_EXERCISES_STUDENTREPOSITORY_H
 #define JIMP_EXERCISES_STUDENTREPOSITORY_H
 
-
+#include <iostream>
+using std::string;
 namespace academia {
-
-    class Student
-    {
-
-    };
 
     class StudyYear
     {
+    public:
+        StudyYear(int y=1);
 
+        int GetY() const;
+        void SetY(int y);
+        void operator++();
+        void operator--();
+        bool operator<(StudyYear y_2) const;
+        bool operator>(StudyYear y_2) const;
+        bool operator==(StudyYear y_2) const;
+        bool operator!=(StudyYear y_2) const ;
+        operator int() const;
+    private:
+        int y;
     };
+
+    class Student
+    {
+    public:
+        friend StudyYear;
+    private:
+        string id;
+        string first_name;
+        string last_name;
+        string program;
+        StudyYear year;
+    };
+
+
 
 };
 
