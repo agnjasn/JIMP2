@@ -30,6 +30,8 @@ namespace academia {
     class Student
     {
     public:
+        bool operator==(Student s2) const;
+        Student operator[](std::string given_id);
         friend StudyYear;
     private:
         string id;
