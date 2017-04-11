@@ -33,8 +33,8 @@ namespace pool
 
             this->sz=set_of_string.size();
         };
-        //TextPool(const TextPool &m); konstruktor kopiujący
-        //TextPool &operator=(const TextPool &m); operator przypisania kopiujący - w zadaniu ma ich nie być
+//        TextPool(const TextPool &m); //konstruktor kopiujący
+//        TextPool &operator=(const TextPool &m); //operator przypisania kopiujący - w zadaniu ma ich nie być
         TextPool(TextPool &&m); //konstruktor przenoszący
         TextPool &operator=(TextPool &&m); //operator przypisania przenoszący
         ~TextPool(); //destruktor
