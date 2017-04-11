@@ -6,8 +6,12 @@
 #define JIMP_EXERCISES_STUDENTREPOSITORY_H
 
 #include <iostream>
+#include <sstream>
 using std::string;
 namespace academia {
+
+    using std::istream;
+    using std::ostream;
 
     class StudyYear
     {
@@ -22,6 +26,8 @@ namespace academia {
         bool operator>(StudyYear y_2) const;
         bool operator==(StudyYear y_2) const;
         bool operator!=(StudyYear y_2) const ;
+
+
         operator int() const;
     private:
         int y;
@@ -30,6 +36,9 @@ namespace academia {
     class Student
     {
     public:
+        Student operator[](std::string given_id);
+        bool operator==(Student s2) const;
+
         friend StudyYear;
     private:
         string id;
@@ -39,7 +48,8 @@ namespace academia {
         StudyYear year;
     };
 
-
+    istream& operator>>(istream & input, StudyYear& p);
+    istream& operator>>(istream & input, Student& p);
 
 };
 
