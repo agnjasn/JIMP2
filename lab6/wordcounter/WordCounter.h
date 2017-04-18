@@ -11,43 +11,11 @@
 #include <set>
 #include <initializer_list>
 #include <iterator>
+#include "Word.h"
+#include "Counts.h"
 
 namespace datastructures
 {
-    class Counts
-    {
-    public:
-        Counts();
-        Counts(int val);
-        bool operator==(Counts other) const;
-        Counts& operator++();
-        //Counts(Counts &&m);
-       // Counts& operator=(Counts &&other);
-        Counts operator+(int a);
-        int Get() const;
-        void Set(int a);
-        operator int() const;
-        friend class Word;
-        friend class WordCounts;
-    private:
-        int counts_;
-    };
-
-    class Word
-    {
-    public:
-        bool operator<(Word w2) const;
-        bool operator==(Word w2) const;
-        Word(std::string s);
-        Word();
-        friend class WordCounts;
-        friend class Counts;
-    private:
-        std::string word_;
-
-    };
-
-
 
     class WordCounter
     {
