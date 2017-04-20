@@ -82,7 +82,7 @@ namespace geometry {
 
     ostream& operator<<(ostream & output, Point& p){
         output<<p.GetX()<<" "<<p.GetY()<<std::endl;
-        return output;      // Umożliwia cin >> a >> b >> c;
+        return output;
     }
 
     stringstream& operator<<(std::stringstream & output, Point& point){
