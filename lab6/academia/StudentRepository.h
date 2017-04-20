@@ -25,7 +25,7 @@ namespace academia {
         bool operator<(StudyYear y_2) const;
         bool operator>(StudyYear y_2) const;
         bool operator==(StudyYear y_2) const;
-        bool operator!=(StudyYear y_2) const;
+        bool operator!=(StudyYear y_2) const ;
 
 
         operator int() const;
