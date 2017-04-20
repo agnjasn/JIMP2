@@ -11,15 +11,19 @@ using ::std::istream;
 using ::std::ws;
 
 namespace geometry {
-    Point::Point() : x_(0), y_(0) {
+    Point::Point() : x_(0), y_(0)
+    {
+        std::cout<<"Konstruktor bezparametryczny 2D"<<std::endl;
     }
 
     Point::Point(double x, double y) {
         x_ = x;
         y_ = y;
+        std::cout<<"Konstruktor parametryczny 2D"<<std::endl;
     }
 
     Point::~Point() {
+        std::cout<<"Destruktor 2D"<<std::endl;
     }
 
     double Point::GetX() const

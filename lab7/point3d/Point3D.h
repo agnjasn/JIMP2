@@ -14,6 +14,7 @@ namespace geometry
     {
     public:
         Point3D();
+        ~Point3D();
         Point3D(double a, double b, double c);
         double Distance(const Point3D &other);
         void Print()const ;
