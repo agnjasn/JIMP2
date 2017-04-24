@@ -7,7 +7,9 @@
 
 void Kolo::Rysuj() const {
 
-    std::cout<<"kolo"<<std::endl;
+    std::cout<<" # "<<std::endl<<"###"<<std::endl<<" # "<<std::endl;
+
+
 }
 
 Kolo::~Kolo() {
@@ -16,7 +18,16 @@ Kolo::~Kolo() {
 
 void Trojkat::Rysuj() const {
 
-    std::cout<<"trojkat"<<std::endl;
+    int r=3;
+    for(int i=0; i<r; i++)
+    {
+        for(int j=0; j<=i; j++)
+        {
+            std::cout << "$";
+        }
+        std::cout<< std::endl;
+    }
+
 }
 
 Trojkat::~Trojkat() {
@@ -24,8 +35,15 @@ Trojkat::~Trojkat() {
 }
 
 void Kwadrat::Rysuj() const {
-
-    std::cout<<"kwadrat"<<std::endl;
+int r=2;
+    for(int i=0; i<r; i++)
+    {
+        for(int j=r; j>0; j--)
+        {
+            std::cout << "*";
+        }
+        std::cout<< std::endl;
+    }
 }
 
 Kwadrat::~Kwadrat() {
