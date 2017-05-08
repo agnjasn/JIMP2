@@ -73,6 +73,18 @@ namespace moviesubs
 
     };
 
+    class MissingTimeSpecification
+    {
+        public:
+        MissingTimeSpecification(){};
+    };
+
+    class OutOfOrderFrames
+    {
+    public:
+        OutOfOrderFrames(){};
+    };
+
 }
 
 

@@ -15,10 +15,6 @@ namespace moviesubs
     }
 
     void MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *in, std::stringstream *out) {
-        std::regex pattern ("\\{(\\d+)\\}\\{(\\d+)\\}(.+)");
-        std::string str=(*in).str();
-        std::smatch match;
-        std::regex_search(str, match, pattern);
 
         if (fps<0)
         {
@@ -83,6 +79,70 @@ namespace moviesubs
 
 
     void SubRipSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *in, std::stringstream *out) {
+        if (fps<0)
+        {
+            throw std::invalid_argument("");
+        }
+        const std::string INPUT = (*in).str();
+        const std::regex ok_line_format ("([0-9]+\n[0-9]+\\:[0-9]+\\:[0-9]+\\,[0-9]+\\s\\-\\-\\>\\s[0-9]+\\:[0-9]+\\:[0-9]+\\,[0-9]+\n.+\n.?+\n\n?)+");
+        const std::regex catch_each_line ("((\\d+)\n(\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\\ \\-\\-\\>\\ (\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\n(.+)\n(.+)?\n\n?)");
+        const std::regex extract_numbers_and_text ("((\\d+)\n(\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\\ \\-\\-\\>\\ (\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\n(.+)\n(.+)?\n\n?)");
 
+        std::string OUTPUT = "";
+        if(!std::regex_match(INPUT, ok_line_format))
+        {
+            throw InvalidSubtitleLineFormat();
+        } else
+        {
+            std::vector <std::string> line_matches;
+            auto words_begin = std::sregex_iterator(INPUT.begin(), INPUT.end(), catch_each_line);
+            auto words_end = std::sregex_iterator();
+            for (std::sregex_iterator i = words_begin; i != words_end; ++i) { //wyłapuje wszystkie pojedyncze linijki
+                std::smatch matches = *i;
+                line_matches.push_back(matches.str()); //wklada je do wektora
+                //  cout<<line_matches.back();
+            }
+
+            for (int i=0; i<line_matches.size(); i++) // ta pętla "przerabia" każdą linię osobno
+            {
+
+                std::smatch matches;
+                regex_match(line_matches[i], matches, extract_numbers_and_text);
+
+                int start_hour=std::stoi(matches[2]);
+                int start_minutes=std::stoi(matches[3]);
+                int start_seconds=std::stoi(matches[4]);
+                int start_miliseconds=std::stoi(matches[5]);
+                int start_time=start_hour*3600+start_minutes*60+start_seconds+start_miliseconds*0.001; //w sekundach
+
+                int end_hour=std::stoi(matches[6]);
+                int end_minutes=std::stoi(matches[7]);
+                int end_seconds=std::stoi(matches[8]);
+                int end_miliseconds=std::stoi(matches[9]);
+                int end_time=end_hour*3600+end_minutes*60+end_seconds+end_miliseconds*0.001;
+                if (end_time<start_time)
+                {
+                    throw SubtitleEndBeforeStart(i+1);
+                }
+//                std::string line_text=matches[3]; // cały tekst po nawiasach łącznie z \n
+//
+//                int offset= static_cast<int>((static_cast<double >(delay)/1000.)*fps); // ustalenie o ile klatek mają się przesunąć napisy
+//                //  int offset=static_cast<int>(offset);
+//
+//                start_frame+=offset; //przesunięcie napisów
+//                end_frame+=offset;
+//
+//                if(start_frame<0 || end_frame<0) // w sumie drugi warunek opcjonalny
+//                {
+//                    throw NegativeFrameAfterShift(); // jeżeli napisy miałyby się zacząc na ujemnej klasie to wyrzuca wyjątek
+//                }
+//                if(line_text[line_text.length()-1]!='\n') line_text+='\n';
+//                OUTPUT+="{"+std::to_string(start_frame)+"}{"+std::to_string(end_frame)+"}"+line_text; // składanie wyjściowego stringa
+//
+//
+            }
+
+            (*out)<<OUTPUT;
+        }
     }
 }
