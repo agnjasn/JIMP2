@@ -41,8 +41,13 @@ namespace moviesubs
             wrong_line_=a;
         }
         ~SubtitleEndBeforeStart() {}
-        int LineAt() {
+        int LineAt() const {
             return wrong_line_;
+        }
+
+        std::string what() const
+        {
+            return "At line "+std::to_string(wrong_line_)+": {260}{220}NEWLINE";
         }
 
     private:

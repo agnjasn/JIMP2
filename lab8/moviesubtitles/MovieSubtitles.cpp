@@ -18,7 +18,7 @@ namespace moviesubs
 
         if (fps<0)
         {
-          //  throw std::invalid_argument;
+            throw std::invalid_argument("");
         }
         const std::string INPUT = (*in).str();
         const std::regex ok_line_format ("(\\{[0-9]+\\}\\{[0-9]+\\}.*\n)+");
