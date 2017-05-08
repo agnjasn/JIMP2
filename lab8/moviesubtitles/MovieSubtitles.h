@@ -36,7 +36,17 @@ namespace moviesubs
     class SubtitleEndBeforeStart
     {
     public:
+        SubtitleEndBeforeStart(int a)
+        {
+            wrong_line_=a;
+        }
         ~SubtitleEndBeforeStart() {}
+        int LineAt() {
+            return wrong_line_;
+        }
+
+    private:
+        int wrong_line_;
 
     };
 

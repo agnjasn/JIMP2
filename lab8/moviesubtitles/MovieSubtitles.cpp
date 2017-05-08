@@ -51,7 +51,7 @@ namespace moviesubs
                int end_frame=std::stoi(matches[2]);
                if (end_frame>start_frame)
                {
-                   throw SubtitleEndBeforeStart();
+                   throw SubtitleEndBeforeStart(i+1);
                }
                std::string line_text=matches[3];
 
