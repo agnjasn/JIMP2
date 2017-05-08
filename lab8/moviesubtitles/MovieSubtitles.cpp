@@ -25,9 +25,9 @@ namespace moviesubs
             throw std::invalid_argument("");
         }
         const std::string INPUT = (*in).str();
-        const std::regex ok_line_format ("(\\{[0-9]+\\}\\{[0-9]+\\}.*\n)+");
-        const std::regex catch_each_line ("\\{[0-9]+\\}\\{[0-9]+\\}.*\n");
-        const std::regex extract_numbers_and_text ("\\{([0-9]+)\\}\\{([0-9]+)\\}(.*\n)");
+        const std::regex ok_line_format ("(\\{[0-9]+\\}\\{[0-9]+\\}.*\n?)+");
+        const std::regex catch_each_line ("\\{[0-9]+\\}\\{[0-9]+\\}.*\n?");
+        const std::regex extract_numbers_and_text ("\\{([0-9]+)\\}\\{([0-9]+)\\}(.*\n?)");
 
         std::string OUTPUT = "";
 
@@ -53,7 +53,7 @@ namespace moviesubs
                //   cout<<matches[0];
                int start_frame=std::stoi(matches[1]); // zawartość pierwszych wąsatych nawiasów
                int end_frame=std::stoi(matches[2]); // i drugich
-               if (end_frame>start_frame)
+               if (end_frame<start_frame)
                {
                    throw SubtitleEndBeforeStart(i+1); // jak napisy się zaczynają pózniej niz koncza to rzuca wyjątek
                    // i+1 to numer linii (indeksując od 1 jak matlab nie od 0 jak cpp(~Maciej Szymkat)), w której jest błąd
@@ -70,7 +70,7 @@ namespace moviesubs
                {
                    throw NegativeFrameAfterShift(); // jeżeli napisy miałyby się zacząc na ujemnej klasie to wyrzuca wyjątek
                }
-
+                if(line_text[line_text.length()-1]!='\n') line_text+='\n';
                OUTPUT+="{"+std::to_string(start_frame)+"}{"+std::to_string(end_frame)+"}"+line_text; // składanie wyjściowego stringa
 
 

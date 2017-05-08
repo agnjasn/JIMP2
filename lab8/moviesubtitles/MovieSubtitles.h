@@ -29,6 +29,9 @@ namespace moviesubs
     class NegativeFrameAfterShift
     {
     public:
+        NegativeFrameAfterShift()
+        {
+        }
         ~NegativeFrameAfterShift() {}
 
     };
