@@ -15,6 +15,10 @@ namespace moviesubs
     }
 
     void MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *in, std::stringstream *out) {
+        std::regex pattern ("\\{(\\d+)\\}\\{(\\d+)\\}(.+)");
+        std::string str=(*in).str();
+        std::smatch match;
+        std::regex_search(str, match, pattern);
 
 
     }
