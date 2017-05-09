@@ -14,7 +14,6 @@ add_gtest_with_memleak(json_serializer libserialization)
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab9_all_tests ${SOURCE_FILES})
 
 target_link_libraries(lab9_all_tests ${GTEST_LIBS})
 target_link_libraries(lab9_all_tests libserialization)
