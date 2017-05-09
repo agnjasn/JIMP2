@@ -11,16 +11,20 @@ using namespace std;
 
 int main (void)
 {
-//    regex pat ("(\\{[0-9]+\\}\\{[0-9]+\\}.*\n)+");
-//    //smatch matches;
-//    string line = "{0}{250}TEXT\n{7}{257}TEXT\n{10}{290}TEXT\n";
-//
+    regex pat ("[0-9]+\n+[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]+ --> [0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]+\n+(.*\n+)+");
+    //smatch matches;
+    string line = "1\n"
+            "00:20:41,150 --> 00:20:45,109\n"
+            "- How did he do that?\n"
+            "- Made him an offer he couldn't refuse.\n\n";
+
+
 ////    std::ptrdiff_t const match_count(std::distance(
 ////            std::sregex_iterator(line.begin(), line.end(), pat),
 ////            std::sregex_iterator()));
-//
-//    if (regex_match(line, pat)) cout<<"tak"<<endl;
-//
+
+    if (regex_match(line, pat)) cout<<"tak"<<endl;
+
 //    regex pat2 ("\\{[0-9]+\\}\\{[0-9]+\\}.*\n");
 //
 //
