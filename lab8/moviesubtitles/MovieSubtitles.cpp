@@ -84,9 +84,9 @@ namespace moviesubs
             throw std::invalid_argument("");
         }
         const std::string INPUT = (*in).str();
-        const std::regex ok_line_format ("([0-9]+\n[0-9]+\\:[0-9]+\\:[0-9]+\\,[0-9]+\\s\\-\\-\\>\\s[0-9]+\\:[0-9]+\\:[0-9]+\\,[0-9]+\n.+\n.?+\n\n?)+");
-        const std::regex catch_each_line ("((\\d+)\n(\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\\ \\-\\-\\>\\ (\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\n(.+)\n(.+)?\n\n?)");
-        const std::regex extract_numbers_and_text ("((\\d+)\n(\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\\ \\-\\-\\>\\ (\\d+)\\:(\\d+)\\:(\\d+)\\,(\\d+)\n(.+)\n(.+)?\n\n?)");
+        const std::regex ok_line_format ("([0-9]+\n+[0-9]+:[0-9]+:[0-9]+,[0-9]+ --> [0-9]+:[0-9]+:[0-9]+,[0-9]+\n+(.*\n+)+)+");
+        const std::regex catch_each_line ("([0-9]+)\n+([0-9]+):([0-9]+):([0-9]+),([0-9]+) --> ([0-9]+):([0-9]+):([0-9]+),([0-9]+)\n+(.*\n+)+");
+        const std::regex extract_numbers_and_text ("([0-9]+)\n+([0-9]+):([0-9]+):([0-9]+),([0-9]+) --> ([0-9]+):([0-9]+):([0-9]+),([0-9]+)\n+(.*\n+)+");
 
         std::string OUTPUT = "";
         if(!std::regex_match(INPUT, ok_line_format))
@@ -113,13 +113,13 @@ namespace moviesubs
                 int start_minutes=std::stoi(matches[3]);
                 int start_seconds=std::stoi(matches[4]);
                 int start_miliseconds=std::stoi(matches[5]);
-                int start_time=start_hour*3600+start_minutes*60+start_seconds+start_miliseconds*0.001; //w sekundach
+                double start_time=start_hour*3600+start_minutes*60+start_seconds+start_miliseconds*0.001; //w sekundach
 
                 int end_hour=std::stoi(matches[6]);
                 int end_minutes=std::stoi(matches[7]);
                 int end_seconds=std::stoi(matches[8]);
                 int end_miliseconds=std::stoi(matches[9]);
-                int end_time=end_hour*3600+end_minutes*60+end_seconds+end_miliseconds*0.001;
+                double end_time=end_hour*3600+end_minutes*60+end_seconds+end_miliseconds*0.001;
                 if (end_time<start_time)
                 {
                     throw SubtitleEndBeforeStart(i+1);
