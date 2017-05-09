@@ -84,9 +84,9 @@ namespace moviesubs
             throw std::invalid_argument("");
         }
         const std::string INPUT = (*in).str();
-        const std::regex ok_line_format ("([0-9]+\n+[0-9]+:[0-9]+:[0-9]+,[0-9]+ --> [0-9]+:[0-9]+:[0-9]+,[0-9]+\n+(.*\n+)+)+");
-        const std::regex catch_each_line ("([0-9]+)\n+([0-9]+):([0-9]+):([0-9]+),([0-9]+) --> ([0-9]+):([0-9]+):([0-9]+),([0-9]+)\n+(.*\n+)+");
-        const std::regex extract_numbers_and_text ("([0-9]+)\n+([0-9]+):([0-9]+):([0-9]+),([0-9]+) --> ([0-9]+):([0-9]+):([0-9]+),([0-9]+)\n+(.*\n+)+");
+        const std::regex ok_line_format ("([0-9]+\n+[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]+ --> [0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]{3}\n+(.*\n+)+\n?)");
+        const std::regex catch_each_line ("([0-9]+)\n+([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9]+) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3})\n+(.*\n+)+");
+        const std::regex extract_numbers_and_text ("([0-9]+)\n+([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9]+) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3})\n+(.*\n+)+");
 
         std::string OUTPUT = "";
         if(!std::regex_match(INPUT, ok_line_format))
@@ -108,36 +108,42 @@ namespace moviesubs
 
                 std::smatch matches;
                 regex_match(line_matches[i], matches, extract_numbers_and_text);
-
+                std::string frame=matches[1];
                 int start_hour=std::stoi(matches[2]);
                 int start_minutes=std::stoi(matches[3]);
-                int start_seconds=std::stoi(matches[4]);
-                int start_miliseconds=std::stoi(matches[5]);
-                double start_time=start_hour*3600+start_minutes*60+start_seconds+start_miliseconds*0.001; //w sekundach
+                std::string str=matches[4];
+                str.replace(2,1,".");
+                double start_seconds=std::stod(str);
+//                int start_miliseconds=std::stoi(matches[5]);
+                double start_time=start_hour*3600+start_minutes*60+start_seconds;//+start_miliseconds*0.001; //w sekundach
 
-                int end_hour=std::stoi(matches[6]);
-                int end_minutes=std::stoi(matches[7]);
-                int end_seconds=std::stoi(matches[8]);
-                int end_miliseconds=std::stoi(matches[9]);
-                double end_time=end_hour*3600+end_minutes*60+end_seconds+end_miliseconds*0.001;
+                int end_hour=std::stoi(matches[5]);
+                int end_minutes=std::stoi(matches[6]);
+                std::string str2=matches[7];
+                str2.replace(2,1,".");
+                double end_seconds=std::stod(str2);
+//                int end_miliseconds=std::stoi(matches[9]);
+                double end_time=(end_hour*3600)+(end_minutes*60)+end_seconds;//+(end_miliseconds*0.001);
                 if (end_time<start_time)
                 {
                     throw SubtitleEndBeforeStart(i+1);
                 }
-//                std::string line_text=matches[3]; // cały tekst po nawiasach łącznie z \n
+                std::string line_text=matches[8]; // cały tekst po nawiasach łącznie z \n
+
+                double offset= delay*0.001;
+//              int offset=static_cast<int>(offset);
 //
-//                int offset= static_cast<int>((static_cast<double >(delay)/1000.)*fps); // ustalenie o ile klatek mają się przesunąć napisy
-//                //  int offset=static_cast<int>(offset);
-//
-//                start_frame+=offset; //przesunięcie napisów
-//                end_frame+=offset;
-//
-//                if(start_frame<0 || end_frame<0) // w sumie drugi warunek opcjonalny
-//                {
-//                    throw NegativeFrameAfterShift(); // jeżeli napisy miałyby się zacząc na ujemnej klasie to wyrzuca wyjątek
-//                }
-//                if(line_text[line_text.length()-1]!='\n') line_text+='\n';
-//                OUTPUT+="{"+std::to_string(start_frame)+"}{"+std::to_string(end_frame)+"}"+line_text; // składanie wyjściowego stringa
+                start_time+=offset; //przesunięcie napisów
+                end_time+=offset;
+
+                if(start_time<0 || end_time<0) // w sumie drugi warunek opcjonalny
+                {
+                    throw NegativeFrameAfterShift(); // jeżeli napisy miałyby się zacząc na ujemnej klasie to wyrzuca wyjątek
+                }
+
+                std::string delayed_start_time=std::to_string(start_time);
+                if(line_text[line_text.length()-1]!='\n') line_text+='\n';
+               OUTPUT+=frame+"\n"+std::to_string(start_time)+"}{"+std::to_string(end_time)+"}"+line_text; // składanie wyjściowego stringa
 //
 //
             }
