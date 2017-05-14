@@ -7,6 +7,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <iomanip>
+
 namespace moviesubs
 {
 
@@ -86,7 +88,7 @@ namespace moviesubs
         const std::string INPUT = (*in).str();
         const std::regex ok_line_format ("([0-9]+\n+[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]+ --> [0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9]{3}\n+(.*\n+)+\n?)");
         const std::regex catch_each_line ("([0-9]+)\n+([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9]+) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3})\n+(.*[^0-9]\n+)+");
-        const std::regex extract_numbers_and_text ("([0-9]+)\n+([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]+) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3})\n+(.*\n+)+");
+        const std::regex extract_numbers_and_text ("([0-9]+)\n+([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3}) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9],[0-9]{3})\n+(.*\n+)+");
 
         std::string OUTPUT = "";
         if(!std::regex_match(INPUT, ok_line_format))
@@ -130,7 +132,7 @@ namespace moviesubs
                 }
                 std::string line_text=matches[8]; // cały tekst po nawiasach łącznie z \n
 
-                double offset= delay*0.001;
+                double offset= delay/1000.;
 //              int offset=static_cast<int>(offset);
 //
                 start_time+=offset; //przesunięcie napisów
@@ -141,14 +143,75 @@ namespace moviesubs
                     throw NegativeFrameAfterShift(); // jeżeli napisy miałyby się zacząc na ujemnej klasie to wyrzuca wyjątek
                 }
 
-                std::string delayed_start_time=std::to_string(start_time);
-                if(line_text[line_text.length()-1]!='\n') line_text+='\n';
-               OUTPUT+=frame+"\n"+std::to_string(start_time)+"}{"+std::to_string(end_time)+"}"+line_text; // składanie wyjściowego stringa
+                start_seconds+=offset;
+                while(start_seconds>60)
+                {
+                    start_seconds-=60;
+                    start_minutes+=1;
+                }
+                while (start_minutes>60)
+                {
+                    start_minutes-=60;
+                    start_hour+=1;
+                }
+
+                end_seconds+=offset;
+                while(end_seconds>60)
+                {
+                    end_seconds-=60;
+                    end_minutes+=1;
+                }
+                while (end_minutes>60)
+                {
+                    end_minutes-=60;
+                    end_hour+=1;
+                }
+
+                //std::string delayed_start_time=std::to_string(start_time);
+               // if(line_text[line_text.length()-1]!='\n') line_text+='\n';
+
+                std::stringstream ss;
+                ss<<start_seconds;
+                str=ss.str();
+
+//                for (int i=0; i<str.length(); i++)
+//                {
+//                    if (str[i]=='.') str[i]=',';
+//                    break;
+//                }
+
+                    if (str.length()<6) str="0"+str;
+
+                str.replace(2,1,",");
+//
+//               OUTPUT+=std::to_string((i+1))+"\n"+std::to_string(start_hour)+":"+std::to_string(start_minutes)+":"+str;
+//                OUTPUT+=" --> ";
+//
+                std::stringstream ss2;
+                ss2<<start_seconds;
+                str2=ss2.str();
+
+//                for (int i=0; i<str2.length(); i++)
+//                {
+//                    if (str2[i]=='.') str2[i]=',';
+//                    break;
+//                }
+
+                if (str2.length()<6)
+                {str2="0"+str2;}
+                str2.replace(2,1,",");
+
+//
+//                OUTPUT+=std::to_string(end_hour)+":"+std::to_string(end_minutes)+":"+str2+"\n";
+//                OUTPUT+=line_text;
+
+                (*out)<<frame<<"\n"<<std::setfill('0')<<std::setw(2)<<start_hour<<":"<<std::setfill('0')<<std::setw(2)<<start_minutes<<":"<<str<<
+                      " --> "<<std::setfill('0')<<std::setw(2)<<end_hour<<":"<<std::setfill('0')<<std::setw(2)<<end_minutes<<":"<<str2<<"\n"<<line_text;
 //
 //
             }
 
-            (*out)<<OUTPUT;
+           // (*out)<<OUTPUT;
         }
     }
 }
