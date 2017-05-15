@@ -23,7 +23,7 @@ namespace academia {
     void Room::Serialize (Serializer *serial) const
     {
         serial->Header("room");
-        serial->IntegerField("id", this->id_);
+        serial->IntegerField("id", this->Id);
         serial->StringField("name", this->name_);
         serial->StringField("type", this->EnumToString());
         serial->Footer("room");
@@ -32,7 +32,7 @@ namespace academia {
     void Building::Serialize(Serializer *serializer) const
     {
         serializer->Header("building");
-        serializer->IntegerField("id", id_);
+        serializer->IntegerField("id", Id);
         serializer->StringField("name", number_);
         serializer->ArrayField("rooms", room_);
         serializer->Footer("building");
@@ -123,13 +123,14 @@ namespace academia {
     void JsonSerializer::ArrayField(const std::string &field_name, const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
     {
         *out_<<"\""<<field_name<<"\": [";
+        bool coma=false;
         for(const Serializable &ser : value)
         {
-            int i=0;
-            i++;
+            if(coma!=false) *out_<<", ";
+            else coma=true;
             JsonSerializer serial{out_};
             ser.Serialize(&serial);
-            if(i!=value.size()) *out_<<", ";
+
         }
         *out_<<"]";
     }
@@ -144,4 +145,16 @@ namespace academia {
         *out_<<"}";
     }
 
+    void BuildingRepository::StoreAll(Serializer *serializer) const {
+
+    }
+
+    void BuildingRepository::Add(Building& room) {
+
+    }
+
+    std::experimental::optional<Building> &BuildingRepository::operator[](int value) {
+        std::experimental::optional<Building> build;
+        return build;
+    }
 }

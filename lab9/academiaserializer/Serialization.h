@@ -11,6 +11,8 @@
 #include <initializer_list>
 #include <sstream>
 #include <functional>
+#include <experimental/optional>
+
 namespace academia
 {
     class Serializer;
@@ -100,6 +102,7 @@ namespace academia
         void Footer(const std::string &object_name) override;
     };
 
+
     class Room: public Serializable
     {
     public:
@@ -110,11 +113,11 @@ namespace academia
         };
         std::string EnumToString() const;
         Room() {}
-        Room(int id, std::string name, Type type): id_(id), name_(name), type_(type){}
+        Room(int id, std::string name, Type type): Id(id), name_(name), type_(type){}
         void Serialize (Serializer *serial) const override ;
 
     private:
-        int id_;
+        int Id;
         std::string name_;
         Type type_;
     };
@@ -122,19 +125,35 @@ namespace academia
     class Building: public  Serializable
     {
     public:
+       // friend  BuildingRepository;
         Building(){}
         virtual ~Building(){}
         Building(int id, std::string number, std::initializer_list<std::reference_wrapper<const Serializable>> room):
-                id_(id), number_(number), room_(room){} ;
+                Id(id), number_(number), room_(room){} ;
         void Serialize(Serializer*) const override;
 
     private:
-        int id_;
+        int Id;
         std::string number_;
         std::vector<std::reference_wrapper<const Serializable>> room_;
     };
 
+    class BuildingRepository
+    { public:
+        //friend Building;
+        BuildingRepository(){}
+        virtual ~BuildingRepository(){}
+        BuildingRepository(Room room_): room(room_){}
+        BuildingRepository(Building build_, Room room_): build(build_), room(room_){}
+        std::experimental::optional<Building>& operator[](int value);
+        void Add(Building& room);
+        void StoreAll(Serializer *serializer) const;
 
+    private:
+        Building build;
+        Room room;
+
+    };
 
 }
 #endif //JIMP_EXERCISES_SERIALIZATION_H
