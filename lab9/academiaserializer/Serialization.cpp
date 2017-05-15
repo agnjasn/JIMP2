@@ -5,6 +5,7 @@
 #include "Serialization.h"
 
 namespace academia {
+    using namespace std::string_literals;
     Serializer::Serializer(std::ostream *out_) : out_(out_) {}
 
     std::string Room::EnumToString() const {
@@ -86,6 +87,61 @@ namespace academia {
     void XmlSerializer::Footer(const std::string &object_name)
     {
         *out_<<"<\\"<<object_name<<">";
+    }
+
+
+
+    void JsonSerializer::IntegerField(const std::string &field_name, int value)
+    {
+        std::string value_str=std::to_string(value);
+        *out_<<"\""<<field_name<<"\": "<<value_str<<", ";
+    }
+
+    void JsonSerializer::DoubleField(const std::string &field_name, double value)
+    {
+        std::string value_str=std::to_string(value);
+        *out_<<"\""<<field_name<<"\": \""<<value_str<<"\", ";
+    }
+
+    void JsonSerializer::StringField(const std::string &field_name, const std::string &value)
+    {
+        if(field_name=="name") *out_<<"\""<<field_name<<"\": \""<<value<<"\", ";
+        else *out_<<"\""<<field_name<<"\": \""<<value<<"\"";
+    }
+
+    void JsonSerializer::BooleanField(const std::string &field_name, bool value)
+    {
+        std::string value_str = std::to_string(value);
+        *out_ << "\"" << field_name << "\": []";
+
+    }
+    void JsonSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value)
+    {
+        *out_<<"["<<field_name<<"]";
+    }
+
+    void JsonSerializer::ArrayField(const std::string &field_name, const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
+    {
+        *out_<<"\""<<field_name<<"\": [";
+        for(const Serializable &ser : value)
+        {
+            int i=0;
+            i++;
+            JsonSerializer serial{out_};
+            ser.Serialize(&serial);
+            if(i!=value.size()) *out_<<", ";
+        }
+        *out_<<"]";
+    }
+
+    void JsonSerializer::Header(const std::string &object_name)
+    {
+        *out_<<"{";
+    }
+
+    void JsonSerializer::Footer(const std::string &object_name)
+    {
+        *out_<<"}";
     }
 
 }
