@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 namespace academia
 {
@@ -50,6 +51,7 @@ namespace academia
 
     class XmlSerializer: public Serializer
     {
+    public:
         XmlSerializer(std::ostream *out) : out_(out){}
        // XmlSerializer(const std::initializer_list<std::ostream*> &l) : out_{l}{}
 
