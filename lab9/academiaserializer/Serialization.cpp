@@ -7,12 +7,9 @@
 namespace academia {
     Serializer::Serializer(std::ostream *out_) : out_(out_) {}
 
-    Serializer::~Serializer() {
-
-    }
+    Serializer::~Serializer() {}
 
     Serializer::Serializer() {}
-
 
     Serializable::Serializable() {}
 
@@ -41,4 +38,5 @@ namespace academia {
     }
 
 
+  //  XmlSerializer::XmlSerializer(std::ostream *out) : out_(out) {}
 }
