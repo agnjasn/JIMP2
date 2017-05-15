@@ -113,11 +113,12 @@ namespace academia
         };
         std::string EnumToString() const;
         Room() {}
-        Room(int id, std::string name, Type type): Id(id), name_(name), type_(type){}
+        Room(int id, std::string name, Type type): id_(id), name_(name), type_(type){}
         void Serialize (Serializer *serial) const override ;
+        int Id() const { return id_;}
 
     private:
-        int Id;
+        int id_;
         std::string name_;
         Type type_;
     };
@@ -128,15 +129,22 @@ namespace academia
        // friend  BuildingRepository;
         Building(){}
         virtual ~Building(){}
-        Building(int id, std::string number, std::initializer_list<std::reference_wrapper<const Serializable>> room):
-                Id(id), number_(number), room_(room){} ;
+        Building(int id, std::string number, std::vector<Room> rooms):
+                id_(id), number_(number)
+        {
+            for (int i; i<rooms.size(); i++)
+            {
+                rooms_.emplace_back(rooms[i]);
+            }
+
+        }
         void Serialize(Serializer*) const override;
-        int GetId() const { return Id;}
+        int Id() const { return id_;}
 
     private:
-        int Id;
+        int id_;
         std::string number_;
-        std::vector<std::reference_wrapper<const Serializable>> room_;
+        std::vector<std::reference_wrapper<const Serializable>> rooms_;
     };
 
     class BuildingRepository

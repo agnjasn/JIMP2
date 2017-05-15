@@ -23,7 +23,7 @@ namespace academia {
     void Room::Serialize (Serializer *serial) const
     {
         serial->Header("room");
-        serial->IntegerField("id", this->Id);
+        serial->IntegerField("id", this->id_);
         serial->StringField("name", this->name_);
         serial->StringField("type", this->EnumToString());
         serial->Footer("room");
@@ -32,9 +32,9 @@ namespace academia {
     void Building::Serialize(Serializer *serializer) const
     {
         serializer->Header("building");
-        serializer->IntegerField("id", Id);
+        serializer->IntegerField("id", id_);
         serializer->StringField("name", number_);
-        serializer->ArrayField("rooms", room_);
+        serializer->ArrayField("rooms", rooms_);
         serializer->Footer("building");
     }
 
@@ -71,11 +71,16 @@ namespace academia {
                                    const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
     {
         *out_<<"<"<<field_name<<">";
-        for(const Serializable &ser : value)
+        if(value.size()>0)
         {
-            XmlSerializer serial{out_};
-            ser.Serialize(&serial);
+            for(const Serializable &ser : value)
+            {
+                XmlSerializer serial{out_};
+                ser.Serialize(&serial);
+            }
+
         }
+
         *out_<<"<\\"<<field_name<<">";
     }
 
@@ -124,14 +129,18 @@ namespace academia {
     {
         *out_<<"\""<<field_name<<"\": [";
         bool coma=false;
-        for(const Serializable &ser : value)
+        if (value.size()>0)
         {
-            if(coma!=false) *out_<<", ";
-            else coma=true;
-            JsonSerializer serial{out_};
-            ser.Serialize(&serial);
+            for(const Serializable &ser : value)
+            {
+                if(coma!=false) *out_<<", ";
+                else coma=true;
+                JsonSerializer serial{out_};
+                ser.Serialize(&serial);
 
+            }
         }
+
         *out_<<"]";
     }
 
