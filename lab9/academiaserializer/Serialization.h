@@ -50,8 +50,10 @@ namespace academia
 
     class XmlSerializer: public Serializer
     {
-        XmlSerializer(std::ostream *out) : out_(out){}
-       // XmlSerializer(const std::initializer_list<std::ostream*> &l) : out_{l}{}
+    public:
+        XmlSerializer(){}
+        virtual ~XmlSerializer(){}
+        XmlSerializer(std::ostream *out) : Serializer(out){}
 
     private:
       std::ostream*out_;
