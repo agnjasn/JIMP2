@@ -42,12 +42,21 @@ namespace academia
 
         virtual void Footer(const std::string &object_name)=0;
 
-        Serializer(std::ostream *out_);
+        Serializer(std::ostream *out);
+
     private:
         std::ostream* out_;
     };
 
-    class XmlSerializer: public Serializer{};
+    class XmlSerializer: public Serializer
+    {
+        XmlSerializer(std::ostream *out) : out_(out){}
+       // XmlSerializer(const std::initializer_list<std::ostream*> &l) : out_{l}{}
+
+    private:
+      std::ostream*out_;
+
+    };
 
     class Room: public Serializable
     {
@@ -69,7 +78,18 @@ namespace academia
     };
 
     class Building: public  Serializable
-    {};
+    {
+    public:
+        Building(){}
+        Building(int id, std::string name, std::vector<Room> rooms) : id_(id), name_(name), rooms_(rooms){}
+        void Serialize (Serializer *serial) const override ;
+
+
+    private:
+        int id_;
+        std::string name_;
+        std::vector<Room> rooms_;
+    };
 
 
 
