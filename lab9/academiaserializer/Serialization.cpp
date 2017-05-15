@@ -145,16 +145,21 @@ namespace academia {
         *out_<<"}";
     }
 
-    void BuildingRepository::StoreAll(Serializer *serializer) const {
+    void BuildingRepository::StoreAll(Serializer *serializer)
+    {
 
     }
 
-    void BuildingRepository::Add(Building& room) {
+    void BuildingRepository::Add(Building bu)
+    {
+        buildings_.push_back(bu);
+    }
+
+    std::experimental::optional<Building> BuildingRepository::operator[](int b_id) const
+    {
 
     }
 
-    std::experimental::optional<Building> &BuildingRepository::operator[](int value) {
-        std::experimental::optional<Building> build;
-        return build;
-    }
+
+
 }

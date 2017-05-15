@@ -131,6 +131,7 @@ namespace academia
         Building(int id, std::string number, std::initializer_list<std::reference_wrapper<const Serializable>> room):
                 Id(id), number_(number), room_(room){} ;
         void Serialize(Serializer*) const override;
+        int GetId() const { return Id;}
 
     private:
         int Id;
@@ -143,15 +144,13 @@ namespace academia
         //friend Building;
         BuildingRepository(){}
         virtual ~BuildingRepository(){}
-        BuildingRepository(Room room_): room(room_){}
-        BuildingRepository(Building build_, Room room_): build(build_), room(room_){}
-        std::experimental::optional<Building>& operator[](int value);
-        void Add(Building& room);
-        void StoreAll(Serializer *serializer) const;
+        BuildingRepository(const std::initializer_list<Building> &buildings) : buildings_{buildings}{}
+        void Add(Building bu);
+        void StoreAll(Serializer *serializer);
+        std::experimental::optional<Building> operator[](int b_id) const;
 
     private:
-        Building build;
-        Room room;
+        std::vector<Building> buildings_;
 
     };
 
