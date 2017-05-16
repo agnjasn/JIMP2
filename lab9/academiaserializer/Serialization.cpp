@@ -72,15 +72,13 @@ namespace academia {
                                    const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
     {
         *out_<<"<"<<field_name<<">";
-   //     if(value.size()>0)
-   //     {
+
             for(const Serializable &ser : value)
             {
                 XmlSerializer serial{out_};
                 ser.Serialize(&serial);
             }
 
-    //    }
 
         *out_<<"<\\"<<field_name<<">";
     }
@@ -130,8 +128,7 @@ namespace academia {
     {
         *out_<<"\""<<field_name<<"\": [";
         bool coma=false;
-        //if (value.size()>0)
-        //{
+
             for(const Serializable &ser : value)
             {
                 if(coma!=false) *out_<<", ";
@@ -140,7 +137,6 @@ namespace academia {
                 ser.Serialize(&serial);
 
             }
-     //  }
 
         *out_<<"]";
     }
@@ -157,6 +153,11 @@ namespace academia {
 
     void BuildingRepository::StoreAll(Serializer *serializer)
     {
+        const std::vector<std::reference_wrapper<const Serializable>> buildings{buildings_.begin(), buildings_.end()};
+        serializer->Header("building_repository");
+        serializer->ArrayField("buildings", buildings);
+        serializer->Footer("building_repository");
+
 
     }
 
@@ -167,6 +168,17 @@ namespace academia {
 
     std::experimental::optional<Building> BuildingRepository::operator[](int b_id) const
     {
+        auto found = std::experimental::optional<Building>();
+        for(const Building& b : buildings_)
+        {
+            if(b.Id() == b_id)
+            {
+                found= b;
+                break;
+            }
+        }
+        return found;
+
 
     }
 
