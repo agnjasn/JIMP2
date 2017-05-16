@@ -173,11 +173,10 @@ namespace academia {
         {
             if(b.Id() == b_id)
             {
-                found= b;
-                break;
+                return found;
             }
         }
-        return found;
+
 
 
     }
