@@ -102,6 +102,16 @@ namespace academia
         void Footer(const std::string &object_name) override;
     };
 
+//    class BuildingReferenceWrapper {
+//    public:
+//        BuildingReferenceWrapper(Building &building)
+//                : building_{&building} {}
+//        operator Building&() {
+//            return *building_;
+//        }
+//    private:
+//        Building *building_;
+//    };
 
     class Room: public Serializable
     {
@@ -129,22 +139,15 @@ namespace academia
        // friend  BuildingRepository;
         Building(){}
         virtual ~Building(){}
-        Building(int id, std::string number, std::vector<Room> rooms):
-                id_(id), number_(number)
-        {
-            for (int i; i<=rooms.size(); i++)
-            {
-                rooms_.emplace_back(rooms[i]);
-            }
-
-        }
+        Building(int id, std::string number, const std::vector<Room> rooms):
+                id_(id), number_(number),  rooms_(rooms) {}
         void Serialize(Serializer*) const override;
         int Id() const { return id_;}
 
     private:
         int id_;
         std::string number_;
-        std::vector<std::reference_wrapper<const Serializable>> rooms_;
+        std::vector<Room> rooms_;
     };
 
     class BuildingRepository
