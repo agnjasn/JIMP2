@@ -31,10 +31,11 @@ namespace academia {
 
     void Building::Serialize(Serializer *serializer) const
     {
+        std::vector<std::reference_wrapper<const Serializable>> rooms(rooms_.begin(), rooms_.end());
         serializer->Header("building");
         serializer->IntegerField("id", id_);
         serializer->StringField("name", number_);
-        serializer->ArrayField("rooms", rooms_);
+        serializer->ArrayField("rooms", rooms);
         serializer->Footer("building");
     }
 
@@ -71,15 +72,15 @@ namespace academia {
                                    const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
     {
         *out_<<"<"<<field_name<<">";
-       // if(value.size()>0)
-       // {
+   //     if(value.size()>0)
+   //     {
             for(const Serializable &ser : value)
             {
                 XmlSerializer serial{out_};
                 ser.Serialize(&serial);
-         //   }
+            }
 
-        }
+    //    }
 
         *out_<<"<\\"<<field_name<<">";
     }

@@ -31,28 +31,14 @@ using ::testing::SizeIs;
 class MockSerializer : public Serializer {
  public:
   MockSerializer() : Serializer{&std::cout} {}
-  MOCK_METHOD2(IntegerField, void(
-      const std::string &field_name,
-      int value));
-  MOCK_METHOD2(DoubleField, void(
-      const std::string &field_name,
-      double value));
-  MOCK_METHOD2(StringField, void(
-      const std::string &field_name,
-      const std::string &value));
-  MOCK_METHOD2(BooleanField, void(
-      const std::string &field_name,
-      bool value));
-  MOCK_METHOD2(SerializableField, void(
-      const std::string &field_name,
-      const Serializable &value));
-  MOCK_METHOD2(ArrayField, void(
-      const std::string &field_name,
-      const std::vector<std::reference_wrapper<const Serializable>> &value));
-  MOCK_METHOD1(Header, void(
-      const std::string &object_name));
-  MOCK_METHOD1(Footer, void(
-      const std::string &object_name));
+  MOCK_METHOD2(IntegerField, void(const std::string &field_name, int value));
+  MOCK_METHOD2(DoubleField, void(const std::string &field_name,double value));
+  MOCK_METHOD2(StringField, void(const std::string &field_name,const std::string &value));
+  MOCK_METHOD2(BooleanField, void(const std::string &field_name,bool value));
+  MOCK_METHOD2(SerializableField, void(const std::string &field_name,const Serializable &value));
+  MOCK_METHOD2(ArrayField, void(const std::string &field_name,const std::vector<std::reference_wrapper<const Serializable>> &value));
+  MOCK_METHOD1(Header, void(const std::string &object_name));
+  MOCK_METHOD1(Footer, void(const std::string &object_name));
 };
 
 class BuildingRepositoryTest : public ::testing::Test, protected MemLeakTest {
