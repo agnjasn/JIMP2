@@ -71,13 +71,13 @@ namespace academia {
                                    const std::vector<std::reference_wrapper<const academia::Serializable>> &value)
     {
         *out_<<"<"<<field_name<<">";
-        if(value.size()>0)
-        {
+       // if(value.size()>0)
+       // {
             for(const Serializable &ser : value)
             {
                 XmlSerializer serial{out_};
                 ser.Serialize(&serial);
-            }
+         //   }
 
         }
 
