@@ -132,7 +132,7 @@ namespace academia
         Building(int id, std::string number, std::vector<Room> rooms):
                 id_(id), number_(number)
         {
-            for (int i; i<rooms.size(); i++)
+            for (int i; i<=rooms.size(); i++)
             {
                 rooms_.emplace_back(rooms[i]);
             }

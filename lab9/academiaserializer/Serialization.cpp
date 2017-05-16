@@ -129,8 +129,8 @@ namespace academia {
     {
         *out_<<"\""<<field_name<<"\": [";
         bool coma=false;
-        if (value.size()>0)
-        {
+        //if (value.size()>0)
+        //{
             for(const Serializable &ser : value)
             {
                 if(coma!=false) *out_<<", ";
@@ -139,7 +139,7 @@ namespace academia {
                 ser.Serialize(&serial);
 
             }
-        }
+     //  }
 
         *out_<<"]";
     }
