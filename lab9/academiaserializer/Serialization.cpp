@@ -166,17 +166,18 @@ namespace academia {
         buildings_.push_back(bu);
     }
 
-    std::experimental::optional<Building> BuildingRepository::operator[](int b_id) const
+    std::experimental::optional<Building> BuildingRepository::operator[](int building_id) const
     {
         auto found = std::experimental::optional<Building>();
         for(const Building& b : buildings_)
         {
-            if(b.Id() == b_id)
+            if(b.Id() == building_id)
             {
-                return found;
+                found= b;
+                break;
             }
         }
-
+        return found;
 
 
     }
