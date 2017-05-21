@@ -9,7 +9,31 @@
 #include <vector>
 namespace academia
 {
-    class SchedulingItem;
+    class SchedulingItem
+    {
+    public:
+        virtual ~SchedulingItem() {}
+        SchedulingItem(){}
+        SchedulingItem(int course_id_,int teacher_id_,
+                       int room_id_, int time_slot_,int year_) :
+                course_id_(course_id_), teacher_id_(teacher_id_),
+                room_id_(room_id_), time_slot_(time_slot_), year_(year_){}
+
+        int CourseId() const {return course_id_;}
+        int TeacherId() const {return teacher_id_;}
+        int RoomId()const {return room_id_;}
+        int TimeSlot()const { return  time_slot_;}
+        int Year()const { return year_;}
+
+    private:
+        int course_id_;
+        int teacher_id_;
+        int room_id_;
+        int time_slot_;
+        int year_;
+    };
+
+
     class Schedule
     {
     public:
@@ -22,31 +46,12 @@ namespace academia
         void InsertScheduleItem(const SchedulingItem &item);
         size_t Size() const;
 
-        const Schedule &operator[] (int val) const {}
+        SchedulingItem operator[] (int val) const;
 
     private:
+        std::vector<SchedulingItem> courses_;
+
     };
-
-    class SchedulingItem: public Schedule
-    {
-    public:
-        virtual ~SchedulingItem() {}
-        SchedulingItem(){}
-        SchedulingItem(int course_id_,int teacher_id_,int room_id_,int time_slot_,int year_): course_id(course_id_), teacher_id(teacher_id_), room_id(room_id_), time_slot(time_slot_), year(year_){}
-        int CourseId() const {return course_id;}
-        int TeacherId() const {return teacher_id;}
-        int RoomId()const {return room_id;}
-        int TimeSlot()const { return  time_slot;}
-        int Year()const { return year;}
-
-    private:
-        int course_id;
-        int teacher_id;
-        int room_id;
-        int time_slot;
-        int year;
-    };
-
 
 
     class Scheduler
