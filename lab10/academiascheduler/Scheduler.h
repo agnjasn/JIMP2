@@ -66,5 +66,18 @@ namespace academia
 //        int n_time_slots;
     };
 
+    class GreedyScheduler: public Scheduler
+    {
+    public:
+        GreedyScheduler(){}
+    private:
+    };
+
+    class NoViableSolutionFound
+    {
+    public:
+    private:
+    };
+
 }
 #endif //JIMP_EXERCISES_SCHEDULER_H
