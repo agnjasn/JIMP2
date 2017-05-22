@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <set>
 namespace academia
 {
     class SchedulingItem
@@ -50,15 +52,18 @@ namespace academia
 
     private:
         std::vector<SchedulingItem> courses_;
-
     };
 
 
     class Scheduler
     {
     public:
-
+        Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots);
     private:
+//        std::vector<int> rooms;
+//        std::map<int, std::vector<int>> teacher_courses_assignment;
+//        std::map<int, std::set<int>> courses_of_year;
+//        int n_time_slots;
     };
 
 }

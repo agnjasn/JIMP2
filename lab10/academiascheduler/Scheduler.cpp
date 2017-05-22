@@ -4,6 +4,7 @@
 
 #include "Scheduler.h"
 #include <algorithm>
+#include <map>
 
 namespace academia
 {
@@ -37,7 +38,17 @@ namespace academia
     }
 
     std::vector<int> Schedule::AvailableTimeSlots(int n_time_slots) const {
-        return std::vector<int>();
+        std::vector<int> vec;
+        for(int time=1; time<=n_time_slots; time++)
+        {
+            auto tmp=std::find_if(courses_.begin(), courses_.end(), [time](SchedulingItem arg)
+            {
+                if (arg.TimeSlot()!=time) return false;
+                else return true;
+            });
+            if(tmp==courses_.end()) vec.push_back(time);
+        }
+        return vec;
     }
 
     void Schedule::InsertScheduleItem(const SchedulingItem &item) {
@@ -53,4 +64,9 @@ namespace academia
         return courses_[val];
     }
 
+    Schedule Scheduler::PrepareNewSchedule(const std::vector<int> &rooms,
+                                           const std::map<int, std::vector<int>> &teacher_courses_assignment,
+                                           const std::map<int, std::set<int>> &courses_of_year, int n_time_slots) {
+        return Schedule();
+    }
 }
