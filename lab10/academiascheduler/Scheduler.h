@@ -58,7 +58,7 @@ namespace academia
     class Scheduler
     {
     public:
-        Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots);
+        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots)=0;
     private:
 //        std::vector<int> rooms;
 //        std::map<int, std::vector<int>> teacher_courses_assignment;
@@ -70,6 +70,7 @@ namespace academia
     {
     public:
         GreedyScheduler(){}
+        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots) override;
     private:
     };
 
