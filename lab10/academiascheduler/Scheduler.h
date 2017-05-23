@@ -16,10 +16,10 @@ namespace academia
     public:
         virtual ~SchedulingItem() {}
         SchedulingItem(){}
-        SchedulingItem(int course_id_,int teacher_id_,
-                       int room_id_, int time_slot_,int year_) :
-                course_id_(course_id_), teacher_id_(teacher_id_),
-                room_id_(room_id_), time_slot_(time_slot_), year_(year_){}
+        SchedulingItem(int course_id,int teacher_id,
+                       int room_id, int time_slot,int year) :
+                course_id_(course_id), teacher_id_(teacher_id),
+                room_id_(room_id), time_slot_(time_slot), year_(year){}
 
         int CourseId() const {return course_id_;}
         int TeacherId() const {return teacher_id_;}
@@ -70,7 +70,7 @@ namespace academia
     {
     public:
         GreedyScheduler(){}
-        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots) override;
+        Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots) override;
     private:
     };
 
