@@ -121,3 +121,5 @@ namespace academia
         return final_schedule;
     }
 }
+
+// linijka nietschego
