@@ -40,23 +40,23 @@ namespace tree
             Tree<T>* r_ptr=this;
         while (true)
         {
-            if(r_ptr->Value()<e && r_ptr->left!= nullptr)
-            {
-                r_ptr->left=std::make_unique<Tree<T>>(e);
-                break;
-
-            }
-
-            else if (!(r_ptr->Value()<e) && r_ptr->right!= nullptr)
+            if(r_ptr->Value()<e && r_ptr->right== nullptr)
             {
                 r_ptr->right=std::make_unique<Tree<T>>(e);
                 break;
 
             }
 
+            else if (!(r_ptr->Value()<e) && r_ptr->left== nullptr)
+            {
+                r_ptr->left=std::make_unique<Tree<T>>(e);
+                break;
 
-            if(r_ptr->Value()<e) r_ptr=r_ptr->left.get();
-            else r_ptr=r_ptr->right.get();
+            }
+
+
+            if(r_ptr->Value()<e) r_ptr=r_ptr->right.get();
+            else r_ptr=r_ptr->left.get();
         }
 
         size++;
