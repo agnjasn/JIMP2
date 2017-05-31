@@ -14,7 +14,7 @@ add_gtest_with_memleak(sequential_generator libsequentialgenerator)
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab12_all_tests ${SOURCE_FILES})
+add_executable(lab12_all_tests ${SOURCE_FILES} ../../lab12/tree/Tree.cpp ../../lab12/tree/Tree.h)
 
 target_link_libraries(lab12_all_tests ${GTEST_LIBS})
 target_link_libraries(lab12_all_tests libtimerecorder)

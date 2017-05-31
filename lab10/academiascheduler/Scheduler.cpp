@@ -74,6 +74,50 @@ namespace academia
                                                  const std::map<int, std::vector<int>> &teacher_courses_assignment,
                                                  const std::map<int, std::set<int>> &courses_of_year,
                                                  int n_time_slots) {
-        return Schedule();
+
+        for (auto crs: courses_of_year)
+        {
+            if (!(crs.second.size() < n_time_slots))
+            {
+                throw NoViableSolutionFound();
+            }
+        }
+        for (auto crs: teacher_courses_assignment)
+        {
+            if (!(crs.second.size() < n_time_slots))
+            {
+                throw NoViableSolutionFound();
+            }
+        }
+
+        Schedule final_schedule{};
+
+        int time=0;
+        int room = 0;
+
+        for (auto teacher:teacher_courses_assignment)
+        {
+            for(auto teacher_course:teacher.second)
+            {
+                for (auto y:courses_of_year)
+                {
+                    for (auto course:y.second)
+                    {
+                        if (teacher_course==course )
+                        {
+                            final_schedule.InsertScheduleItem(SchedulingItem{course ,teacher.first,rooms[room],time, y.first});
+                            room++;
+                            time++;
+                            break;
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+
+        return final_schedule;
     }
 }
