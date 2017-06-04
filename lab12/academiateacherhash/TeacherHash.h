@@ -6,21 +6,17 @@
 #define JIMP_EXERCISES_TEACHERHASH_H
 
 #include <iostream>
-using ::std::literals::string_literals::operator""s;
+
 namespace academia
 {
     class TeacherId
     {
     public:
         TeacherId(){}
-        TeacherId(int id_): id(id_){}
-        operator int() {return id;}
-        size_t operator()()
-        {
-
-        }
-    private:
-        int id;
+        TeacherId(int id_): id2(id_){}
+        int Id(){return id2;}
+        operator int() {return id2;}
+        int id2;
     };
 
     class Teacher
@@ -31,20 +27,24 @@ namespace academia
         std::string Name(){return name;}
         std::string Department(){ return department;}
         TeacherId Id(){ return id;}
-    private:
+
         std::string name;
         std::string department;
         TeacherId id;
     };
-
-
-
-    class TeacherHash
-    { public:
-        TeacherHash(){}
-        std::size_t hash(){ return 0;}
+    bool operator==(const TeacherId &t, const TeacherId &t2){return t2.id2==t.id2;}
+    bool operator==(const Teacher &t, const Teacher &t2){return t.id==t2.id && t.name==t2.name && t.department==t2.department;}
+    bool operator!=(const TeacherId &t, const TeacherId &t2){return t2.id2!=t.id2;}
+    bool operator!=(const Teacher &t, const Teacher &t2){return t.id!=t2.id || t.name!=t2.name || t.department!=t2.department;}
+    std::size_t operator*(TeacherId tea, size_t val){return tea.id2*val;}
+    struct TeacherHash {
+       std::size_t operator()(Teacher const &teacher1) const
+       {
+           std::size_t h1 = std::hash<std::string>{}(teacher1.name);
+           std::size_t h2 = std::hash<std::string>{}(teacher1.department);
+           return (teacher1.id*h1+h2);
+       }
     };
-
 
 }
 
