@@ -11,15 +11,15 @@ namespace tree
 {
 
     template <class T>
-    class InOrderTreeIterator 
+    class InOrderTreeIterator
     {
-        
+
     };
 
     template <class T>
     class InOrderTreeView
     {
-        
+
     };
 
     template <class T>
@@ -31,6 +31,20 @@ namespace tree
         T operator*() { return root_->Value();}
         Tree<T>*operator++()
         {
+            auto tmp=root_;
+            if(root_->Right()== nullptr)
+            {
+                while (root_->Parent()->Right()==root_ && root_->Parent()!= nullptr)
+                {
+                    root_=root_->Parent();
+                }
+
+            }
+            root_=root_->Right();
+//            while(root_->Left()!= nullptr)
+//            {
+//                root_=root_->Left();
+//            }
             return root_;
         }
         bool operator!=(const PreOrderTreeIterator &it2) const
@@ -41,7 +55,7 @@ namespace tree
 
     private:
         Tree<T>* root_;
-        
+
     };
 
 

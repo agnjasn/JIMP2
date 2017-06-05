@@ -14,13 +14,14 @@ namespace tree
     class Tree{
     public:
         Tree(const T &el) : value(el){left=nullptr;
-        right=nullptr;}
+        right=nullptr; parent= nullptr;}
         Tree(){}
         ~Tree(){}
         void Insert(const T &e);
         bool Find(const T &e);
         Tree<T>* Left(){ return left.get();}
         Tree<T>* Right() { return right.get();}
+        Tree<T>* Parent() { return parent;}
         T Value();
         size_t Depth();
         size_t Size();
@@ -34,6 +35,7 @@ namespace tree
         //std::unique_ptr<T> root;
         std::unique_ptr<Tree<T>> left;
         std::unique_ptr<Tree<T>> right;
+        Tree<T>* parent;
         T value;
         size_t size=1;
     };
@@ -46,6 +48,7 @@ namespace tree
             if(r_ptr->Value()<e && r_ptr->right== nullptr)
             {
                 r_ptr->right=std::make_unique<Tree<T>>(e);
+                r_ptr->right->parent=r_ptr;
                 break;
 
             }
@@ -53,6 +56,7 @@ namespace tree
             else if (!(r_ptr->Value()<e) && r_ptr->left== nullptr)
             {
                 r_ptr->left=std::make_unique<Tree<T>>(e);
+                r_ptr->left->parent=r_ptr;
                 break;
 
             }
