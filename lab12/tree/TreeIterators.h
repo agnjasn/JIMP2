@@ -14,26 +14,34 @@ namespace tree
     {
         
     };
+
     template <class T>
     class InOrderTreeIterator 
     {
         
     };
+
     template <class T>
     class InOrderTreeView
     {
         
     };
+
     template <class T>
     class PreOrder
     {
+    public:
+
         
     };
     template <class T>
     class PreOrderTreeIterator
     {
+    public:
+        PreOrderTreeIterator (Tree<T>* arg) {}
         
     };
+
     template <class T>
     class PreOrderTreeView
     {

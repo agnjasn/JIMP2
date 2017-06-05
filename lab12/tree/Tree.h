@@ -22,6 +22,7 @@ namespace tree
         T Value();
         size_t Depth();
         size_t Size();
+        Tree<T>* Root(){return this;}
         bool operator<(const Tree<T> &value)
         {
             if(this->value<value) return true;
