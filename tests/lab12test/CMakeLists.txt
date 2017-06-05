@@ -16,7 +16,7 @@ add_gtest_with_memleak(tree_preorder libtreeiterators)
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab12_all_tests ${SOURCE_FILES} ../../lab12/tree/Tree.cpp ../../lab12/tree/Tree.h)
+add_executable(lab12_all_tests ${SOURCE_FILES} ../../lab12/tree/Tree.cpp ../../lab12/tree/Tree.h ../../lab12/tree/TreeIterators.cpp ../../lab12/tree/TreeIterators.h ../../lab12/academiateacherhash/TeacherHash.cpp ../../lab12/academiateacherhash/TeacherHash.h ../../lab12/academiasequentialgenerator/SequentialGenerator.cpp ../../lab12/academiasequentialgenerator/SequentialGenerator.h)
 
 target_link_libraries(lab12_all_tests ${GTEST_LIBS})
 target_link_libraries(lab12_all_tests libtimerecorder)

@@ -117,18 +117,18 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   EXPECT_EQ(
       "<building_repository>"
         "<buildings>"
-          "<building><id>101<\\id><name>B-1<\\name>"
+          "<building><id2>101<\\id2><name>B-1<\\name>"
             "<rooms>"
-              "<room><id>101301<\\id><name>H-24<\\name><type>LECTURE_HALL<\\type><\\room>"
-              "<room><id>102683<\\id><name>021<\\name><type>COMPUTER_LAB<\\type><\\room>"
+              "<room><id2>101301<\\id2><name>H-24<\\name><type>LECTURE_HALL<\\type><\\room>"
+              "<room><id2>102683<\\id2><name>021<\\name><type>COMPUTER_LAB<\\type><\\room>"
             "<\\rooms>"
           "<\\building>"
-          "<building><id>102<\\id><name>B-2<\\name>"
+          "<building><id2>102<\\id2><name>B-2<\\name>"
             "<rooms><\\rooms>"
           "<\\building>"
-          "<building><id>103<\\id><name>C-2<\\name>"
+          "<building><id2>103<\\id2><name>C-2<\\name>"
             "<rooms>"
-              "<room><id>100110<\\id><name>208<\\name><type>COMPUTER_LAB<\\type><\\room>"
+              "<room><id2>100110<\\id2><name>208<\\name><type>COMPUTER_LAB<\\type><\\room>"
             "<\\rooms>"
           "<\\building>"
         "<\\buildings>"
@@ -153,16 +153,16 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   repository.StoreAll(&serializer);
   EXPECT_EQ(
       "{\"buildings\": "
-        "[{\"id\": 101, \"name\": \"B-1\", "
+        "[{\"id2\": 101, \"name\": \"B-1\", "
           "\"rooms\": "
-            "[{\"id\": 101301, \"name\": \"H-24\", \"type\": \"LECTURE_HALL\"}, "
-            "{\"id\": 102683, \"name\": \"021\", \"type\": \"COMPUTER_LAB\"}]}, "
-        "{\"id\": 102, \"name\": \"B-2\", "
+            "[{\"id2\": 101301, \"name\": \"H-24\", \"type\": \"LECTURE_HALL\"}, "
+            "{\"id2\": 102683, \"name\": \"021\", \"type\": \"COMPUTER_LAB\"}]}, "
+        "{\"id2\": 102, \"name\": \"B-2\", "
           "\"rooms\": "
             "[]}, "
-        "{\"id\": 103, \"name\": \"C-2\", "
+        "{\"id2\": 103, \"name\": \"C-2\", "
           "\"rooms\": "
-            "[{\"id\": 100110, \"name\": \"208\", \"type\": \"COMPUTER_LAB\"}]}]}"s,
+            "[{\"id2\": 100110, \"name\": \"208\", \"type\": \"COMPUTER_LAB\"}]}]}"s,
       out.str());
 }
 
