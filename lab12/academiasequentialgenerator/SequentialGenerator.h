@@ -11,7 +11,7 @@ template<class T, class U>
 class SequentialIdGenerator
 {
 public:
-    SequentialIdGenerator() {}
+    SequentialIdGenerator() {id_=0;}
     SequentialIdGenerator(const U &licz): licznik{licz}  {}
     SequentialIdGenerator(const T &id): id_{id} {}
     operator int() {return licznik;}

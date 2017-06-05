@@ -23,7 +23,7 @@ namespace academia {
     void Room::Serialize (Serializer *serial) const
     {
         serial->Header("room");
-        serial->IntegerField("id", this->id_);
+        serial->IntegerField("id2", this->id_);
         serial->StringField("name", this->name_);
         serial->StringField("type", this->EnumToString());
         serial->Footer("room");
@@ -33,7 +33,7 @@ namespace academia {
     {
         std::vector<std::reference_wrapper<const Serializable>> rooms(rooms_.begin(), rooms_.end());
         serializer->Header("building");
-        serializer->IntegerField("id", id_);
+        serializer->IntegerField("id2", id_);
         serializer->StringField("name", number_);
         serializer->ArrayField("rooms", rooms);
         serializer->Footer("building");

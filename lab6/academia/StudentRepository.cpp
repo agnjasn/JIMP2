@@ -34,7 +34,7 @@ namespace academia {
             Student_1.year=this->year;
             return Student_1;
         }
-        else std::cout<<"brak id";
+        else std::cout<<"brak id2";
         return Student_1;
     }
 
