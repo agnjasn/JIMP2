@@ -9,11 +9,6 @@
 
 namespace tree
 {
-    template <class T>
-    class InOrder
-    {
-        
-    };
 
     template <class T>
     class InOrderTreeIterator 
@@ -28,25 +23,52 @@ namespace tree
     };
 
     template <class T>
-    class PreOrder
-    {
-    public:
-
-        
-    };
-    template <class T>
     class PreOrderTreeIterator
     {
     public:
-        PreOrderTreeIterator (Tree<T>* arg) {}
+        PreOrderTreeIterator(){}
+        PreOrderTreeIterator (Tree<T>* arg) : root_(arg){}
+        Tree<T>* What() const {return root_;}
+        Tree<T>*operator++()
+        {
+            return root_;
+        }
+        T operator*()
+        {
+            return root_->Value();
+        }
+
+    private:
+        Tree<T>* root_;
         
     };
+
+    template <class T>
+    bool operator!=(const PreOrderTreeIterator<T> &it1, const PreOrderTreeIterator<T> &it2)
+    {
+        return (it1.What()!=it2.What());
+    }
 
     template <class T>
     class PreOrderTreeView
     {
-        
+    public:
+        PreOrderTreeView<T>( Tree<T>* tree) : tree_(tree){}
+        PreOrderTreeIterator<T> begin() {return PreOrderTreeIterator<T>{tree_};}
+        PreOrderTreeIterator<T> end() {return PreOrderTreeIterator<T>();}
+
+    private:
+         Tree<T>* tree_;
+
     };
+
+
+    template <class T>
+    PreOrderTreeView<T> PreOrder( Tree<T>* tree)
+    {
+        return PreOrderTreeView<T>{tree};
+    }
+
 }
 
 

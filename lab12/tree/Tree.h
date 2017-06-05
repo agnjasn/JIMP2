@@ -19,6 +19,8 @@ namespace tree
         ~Tree(){}
         void Insert(const T &e);
         bool Find(const T &e);
+        Tree<T>* Left(){ return left.get();}
+        Tree<T>* Right() { return right.get();}
         T Value();
         size_t Depth();
         size_t Size();
