@@ -6,6 +6,7 @@
 #define JIMP_EXERCISES_TREEITERATORS_H
 
 #include "Tree.h"
+#include <set>
 
 namespace tree
 {
@@ -31,30 +32,44 @@ namespace tree
         T operator*() { return root_->Value();}
         Tree<T>*operator++()
         {
-            auto tmp=root_;
-            if(root_->Right()== nullptr)
+           // auto tmp=root_;
+            if (root_->Parent()== nullptr && done.find(root_->Value())==done.end()) //jesli NIE MA korzenia w zbiorze
             {
-                while (root_->Parent()->Right()==root_ && root_->Parent()!= nullptr)
-                {
-                    root_=root_->Parent();
-                }
+                done.insert(root_->Value()); // dodaj do zbioru
+            }
+            if (root_->Left()!= nullptr && done.find(root_->Left()->Value())==done.end())
+            {
+                root_=root_->Left();
+                done.insert(root_->Value());
+                return root_;
+            }
+            if (root_->Right()!= nullptr && done.find(root_->Right()->Value())==done.end())
+            {
+                root_=root_->Right();
+                done.insert(root_->Value());
+                return root_;
+            }
+            if(root_->Parent()== nullptr && done.find(root_->Left()->Value())!=done.end() && done.find(root_->Right()->Value())!=done.end())
+            {
+                return root_;
 
             }
-            root_=root_->Right();
-//            while(root_->Left()!= nullptr)
-//            {
-//                root_=root_->Left();
-//            }
-            return root_;
+            root_=root_->Parent();
+            return ++(*this);
+
+
+
         }
         bool operator!=(const PreOrderTreeIterator &it2) const
         {
-            if(root_->Value()!=it2.root_->Value()) return true;
+            if(root_!=it2.root_) return true;
             else return false;
+//            return false;
         }
 
     private:
         Tree<T>* root_;
+        std::set<T> done;
 
     };
 
@@ -77,7 +92,7 @@ namespace tree
     template <class T>
     PreOrderTreeView<T> PreOrder( Tree<T>* tree)
     {
-        return PreOrderTreeView<T>{tree};
+        return PreOrderTreeView<T>(tree);
     }
 
 }
