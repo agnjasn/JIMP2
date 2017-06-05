@@ -7,18 +7,18 @@
 
 #include <iostream>
 
-template<class T, class U>
+template<class Id, class Count>
 class SequentialIdGenerator
 {
 public:
-    SequentialIdGenerator() {id_=0;}
-    SequentialIdGenerator(const U &licz): licznik{licz}  {}
-    SequentialIdGenerator(const T &id): id_{id} {}
-    operator int() {return licznik;}
-    T NextValue(){ T a; return a;};
+    SequentialIdGenerator(const Count &licz=Count()): count{licz}{}
+    Id NextValue()
+    {
+        Id id2=Id(count);
+        ++count;
+        return id2;}
 private:
-    T id_;
-    U licznik;
+    Count count;
 };
 
 
