@@ -33,17 +33,18 @@ namespace tree
         {
             return root_;
         }
+        bool operator!=(const PreOrderTreeIterator &it2) const
+        {
+            if(root_->Value()!=it2.root_->Value()) return true;
+            else return false;
+        }
 
     private:
         Tree<T>* root_;
         
     };
 
-    template <class T>
-    bool operator!=( PreOrderTreeIterator<T> it1, PreOrderTreeIterator<T> &it2)
-    {
-        return (it1!=it2);
-    }
+
 
     template <class T>
     class PreOrderTreeView
