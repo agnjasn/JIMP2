@@ -28,14 +28,10 @@ namespace tree
     public:
         PreOrderTreeIterator(){}
         PreOrderTreeIterator (Tree<T>* arg) : root_(arg){}
-        Tree<T>* What() const {return root_;}
+        T operator*() { return root_->Value();}
         Tree<T>*operator++()
         {
             return root_;
-        }
-        T operator*()
-        {
-            return root_->Value();
         }
 
     private:
@@ -44,9 +40,9 @@ namespace tree
     };
 
     template <class T>
-    bool operator!=(const PreOrderTreeIterator<T> &it1, const PreOrderTreeIterator<T> &it2)
+    bool operator!=( PreOrderTreeIterator<T> it1, PreOrderTreeIterator<T> &it2)
     {
-        return (it1.What()!=it2.What());
+        return (it1!=it2);
     }
 
     template <class T>
