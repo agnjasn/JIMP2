@@ -18,3 +18,7 @@ TEST(ArabicRomanTests, Thousand589ShouldBeMDLXXXIX)
 {
     EXPECT_EQ("MDLXXXIX", ArabicToRoman(1589));
 }
+
+TEST(ArabicRomanTests, NegativeNumber) {
+    EXPECT_THROW(ArabicToRoman(-3), Negative);
+}
